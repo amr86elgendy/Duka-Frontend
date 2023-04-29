@@ -1,3 +1,21 @@
 {
-  "hello": "hello world"
+  "account": "account",
+  "added": "added",
+  "cart": "cart",
+  "footer-rights": "all rights reserve",
+  "greeting": "Hi",
+  "help": "help",
+  "home": "home",
+  "logout": "logout",
+  "menu": "menu",
+  "my-account": "my account",
+  "my-name": "amr elgendy",
+  "my-orders": "my orders",
+  "products": "products",
+  "search": "search",
+  "search-placeholder": "Search products, brands and categories..",
+  "success": "success",
+  "successfully-added": "successfully added",
+  "topbar-sale": "Summer sale discount off 50% !",
+  "wishlist": "saved items"
 }

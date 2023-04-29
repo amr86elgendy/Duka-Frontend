@@ -1,16 +1,36 @@
-import { useTranslation } from 'react-i18next';
-import Some from './components/some';
-import { useAuthContext } from './context/auth';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AppLayout from './layout';
+import HomePage from './pages/Home';
+import LoginPage from './pages/Login';
+import SignUpPage from './pages/SignUp';
+import ShoppingPage from './pages/Shopping';
+import ProductPage from './pages/Product';
+import CartPage from './pages/Cart';
+import CheckoutPage from './pages/Checkout';
+import NotFoundPage from './routes/not-found';
+import RequireAuth from './routes/requireAuth';
 
 export default function App() {
-  const { t } = useTranslation();
-  const { isAuthenticated } = useAuthContext();
   console.log('app run');
-  console.log(isAuthenticated);
   return (
-    <>
-      <h1 className='text-3xl font-bold underline'>{t('hello')}</h1>
-      <Some />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="products" element={<ShoppingPage />} />
+          <Route path="products/:id" element={<ProductPage />} />
+          <Route path="cart" element={<CartPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="sign-up" element={<SignUpPage />} />
+
+          {/* private Routes */}
+          <Route element={<RequireAuth />}>
+            <Route path="checkout" element={<CheckoutPage />} />
+          </Route>
+        </Route>
+
+        <Route path="/*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

@@ -1,4 +1,10 @@
-import { createContext, useContext, useReducer, ReactElement } from 'react';
+import {
+  createContext,
+  useContext,
+  useReducer,
+  ReactElement,
+  useMemo,
+} from 'react';
 import jwtDecode from 'jwt-decode';
 
 interface IUser {
@@ -19,14 +25,13 @@ const initState: StateType = {
   accessToken: null,
 };
 
-export const enum Auth_ACTION_TYPE {
-  SET_USER,
-  REFRESH_ACCESS_TOKEN,
-  LOGOUT_USER,
-}
+export type AuthActionType =
+  | 'SET_USER'
+  | 'REFRESH_ACCESS_TOKEN'
+  | 'LOGOUT_USER';
 
 type ReducerAction = {
-  type: Auth_ACTION_TYPE;
+  type: AuthActionType;
   payload?: any;
 };
 
@@ -35,14 +40,14 @@ const reducer = (
   { type, payload }: ReducerAction
 ): StateType => {
   switch (type) {
-    case Auth_ACTION_TYPE.SET_USER:
+    case 'SET_USER':
       return {
         ...state,
         isAuthenticated: true,
         user: payload.user,
         accessToken: payload.accessToken,
       };
-    case Auth_ACTION_TYPE.REFRESH_ACCESS_TOKEN:
+    case 'REFRESH_ACCESS_TOKEN':
       const user = jwtDecode<IUser>(payload.accessToken);
       return {
         ...state,
@@ -50,7 +55,7 @@ const reducer = (
         user,
         accessToken: payload.accessToken,
       };
-    case Auth_ACTION_TYPE.LOGOUT_USER:
+    case 'LOGOUT_USER':
       return {
         ...state,
         isAuthenticated: false,
@@ -58,12 +63,12 @@ const reducer = (
         accessToken: null,
       };
     default:
-      throw new Error('there is no type called ' + type);
+      throw new Error(`there is no type called ${type}`);
   }
 };
 
 interface IAuthContext extends StateType {
-  dispatch: (type: Auth_ACTION_TYPE, payload?: any) => void;
+  dispatch: (type: AuthActionType, payload?: any) => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -71,22 +76,19 @@ const AuthContext = createContext<IAuthContext>({
   dispatch: () => {},
 });
 
-export const AuthProvider = ({
+export function AuthProvider({
   children,
 }: {
   children?: ReactElement | ReactElement[] | undefined;
-}): ReactElement => {
+}): ReactElement {
   const [state, defaultDispatch] = useReducer(reducer, initState);
 
-  const dispatch = (type: Auth_ACTION_TYPE, payload?: any) =>
+  const dispatch = (type: AuthActionType, payload?: any) =>
     defaultDispatch({ type, payload });
+  const value = useMemo(() => ({ ...state, dispatch }), [state]);
 
-  return (
-    <AuthContext.Provider value={{ ...state, dispatch }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
 
 export const useAuthContext = () => {
   return useContext(AuthContext);

@@ -23,6 +23,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [".eslintrc.cjs", "src"],
+  "include": [".eslintrc.cjs", "prettier.config.cjs", "tailwind.config.js", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
