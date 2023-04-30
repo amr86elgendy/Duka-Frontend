@@ -33,5 +33,6 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'no-underscore-dangle': 'off',
   },
 };
