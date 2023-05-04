@@ -1,47 +1,35 @@
 import { useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useLogin } from '@/apis/auth';
-import { useAuthContext } from '@/context/auth';
 
-interface ILoginFormValues {
+type TLoginFormValues = {
   email: string;
   password: string;
   rememberMe: boolean;
-}
+};
 
 export default function LoginPage() {
-  const location = useLocation();
-  const from = ((location.state as any)?.from.pathname as string) || '/';
-
-  const navigate = useNavigate();
-  const { dispatch } = useAuthContext();
-
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<ILoginFormValues>({
+  } = useForm<TLoginFormValues>({
     defaultValues: { email: 'amr@tawfik.com', password: '123456' },
   });
 
   const { mutate: login } = useLogin();
-  console.log(watch('rememberMe'));
+
   useEffect(() => {
-    localStorage.setItem('remember-me', JSON.stringify(watch('rememberMe')));
+    localStorage.setItem(
+      'ishop-remember-me',
+      JSON.stringify(watch('rememberMe'))
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watch('rememberMe')]);
 
-  const onSubmit = (values: ILoginFormValues) => {
-    console.log(values);
-    login(values, {
-      onSuccess: (data) => {
-        dispatch('SET_USER', data);
-        navigate(from);
-      },
-    });
-  };
+  const onSubmit = (values: TLoginFormValues) => login(values);
 
   return (
     <div className="2xl:w-[1570px] w-11/12 m-auto h-screen">

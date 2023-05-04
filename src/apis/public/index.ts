@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '@/middlewares/apiClient';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import axiosDefault from '../axios';
 
 // ######################### Get All Categories #########################
 async function getCategories() {
-  const { data } = await axiosInstance({
+  const { data } = await axiosDefault({
     url: '/categories',
     method: 'GET',
   });
@@ -19,7 +20,7 @@ export const useGetCategories = () => {
 
 // ######################### Get All Brands #########################
 async function getBrands() {
-  const { data } = await axiosInstance({
+  const { data } = await axiosDefault({
     url: '/brands',
     method: 'GET',
   });
@@ -32,3 +33,15 @@ export const useGetBrands = () => {
     queryFn: getBrands,
   });
 };
+
+export function useGetUsers() {
+  const axiosPrivate = useAxiosPrivate();
+
+  return useQuery({
+    queryKey: ['get-users'],
+    queryFn: async () => {
+      const { data } = await axiosPrivate({ url: '/users' });
+      return data;
+    },
+  });
+}

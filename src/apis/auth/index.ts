@@ -1,36 +1,70 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '@/middlewares/apiClient';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { axiosPrivate } from '../axios';
+import { useAuthContext } from '@/context/auth';
 
 // ######################## Login ############################
-const login = (user: { email: string; password: string }) =>
-  axiosInstance({ url: '/auth/login', method: 'POST', data: user });
+const login = async (user: { email: string; password: string }) => {
+  const { data } = await axiosPrivate({
+    url: '/auth/login',
+    method: 'POST',
+    data: user,
+  });
+  return data;
+};
 
 export function useLogin() {
-  return useMutation({ mutationFn: login });
+  const location = useLocation();
+  const from = location.state?.from.pathname || '/';
+  const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      dispatch('SET_USER', data);
+      navigate(from, { replace: true });
+    },
+  });
 }
 
-// ######################## Refresh Token #####################
-export const refreshAccessToken = async () => {
-  const { data } = await axiosInstance({ url: 'auth/refresh', method: 'GET' });
+// ######################## Refresh Token ############################
+export const refreshTokenFn = async () => {
+  const { data } = await axiosPrivate({
+    url: 'auth/refresh',
+    method: 'GET',
+  });
   return data;
 };
 
-// ######################## Get Me #####################
-export const getMeFn = async () => {
-  const { data } = await axiosInstance({ url: 'users/getMe', method: 'GET' });
-  return data;
-};
+export function useRefreshToken({
+  enabled,
+  onSuccess,
+  onError,
+}: {
+  enabled: boolean;
+  onSuccess: (data: { accessToken: string }) => void;
+  onError: () => void;
+}) {
+  return useQuery({
+    queryKey: ['refresh-token'],
+    queryFn: refreshTokenFn,
+    enabled,
+    onSuccess,
+    onError,
+  });
+}
 
 // ######################## LogOut ############################
-const logout = async () => {
-  const { data } = await axiosInstance({ url: '/auth/logout' });
-  return data;
-};
-
 export function useLogout() {
+  const { dispatch } = useAuthContext();
   return useQuery({
     queryKey: ['logout'],
-    queryFn: logout,
+    queryFn: async () => {
+      const { data } = await axiosPrivate({ url: '/auth/logout' });
+      return data;
+    },
     enabled: false,
+    onSuccess: () => dispatch('LOGOUT_USER'),
   });
 }

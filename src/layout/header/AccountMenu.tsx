@@ -3,17 +3,10 @@ import { Menu, Transition } from '@headlessui/react';
 import { FaChevronDown } from 'react-icons/fa';
 import { IoHelpCircleOutline, IoLogOutOutline } from 'react-icons/io5';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
-import { useAuthContext } from '@/context/auth';
 import { useLogout } from '@/apis/auth';
 
 export default function AccountMenu() {
-  const { dispatch } = useAuthContext();
-  const { refetch } = useLogout();
-
-  function handleLogout() {
-    refetch();
-    dispatch('LOGOUT_USER');
-  }
+  const { refetch: logoutUser } = useLogout();
 
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -78,7 +71,7 @@ export default function AccountMenu() {
                   className={`${
                     active ? 'bg-primary-1 text-white' : 'text-gray-900'
                   } group flex w-full items-center rounded-md px-2 py-2 text-sm capitalize`}
-                  onClick={handleLogout}
+                  onClick={() => logoutUser()}
                 >
                   <IoLogOutOutline
                     className={`w-5 h-5 mr-2 ${active && 'text-white'}`}

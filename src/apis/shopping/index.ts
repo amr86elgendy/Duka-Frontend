@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import qs from 'query-string';
-import { axiosInstance } from '@/middlewares/apiClient';
+import axiosDefault from '../axios';
 
 // ######################### Get All Products #########################
 const getProducts = async ({ pageParam = 1, queryKey }: any) => {
@@ -27,7 +27,7 @@ const getProducts = async ({ pageParam = 1, queryKey }: any) => {
     skipNull: true,
   });
 
-  const { data } = await axiosInstance({
+  const { data } = await axiosDefault({
     url: `/products?page=${pageParam}&${queryStr}`,
     method: 'GET',
   });
@@ -49,7 +49,7 @@ export const useGetProducts = (props: any) => {
 // ######################### Get Single Product #########################
 
 async function getProduct(productId: string) {
-  const { data } = await axiosInstance({
+  const { data } = await axiosDefault({
     url: `/products/${productId}`,
     method: 'GET',
   });
@@ -71,7 +71,7 @@ async function getSimilarProducts({ productId, ...rest }: Record<string, any>) {
     skipNull: true,
   });
 
-  const { data } = await axiosInstance({
+  const { data } = await axiosDefault({
     url: `/products/${productId}/similar?${queryStr}`,
     method: 'GET',
   });
@@ -95,7 +95,7 @@ async function getProductReviews({ pageParam = 1, queryKey }: any) {
     skipNull: true,
   });
 
-  const { data } = await axiosInstance({
+  const { data } = await axiosDefault({
     url: `/reviews?page=${pageParam}&${queryStr}`,
     method: 'GET',
   });

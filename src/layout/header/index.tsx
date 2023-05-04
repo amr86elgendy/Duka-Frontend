@@ -80,10 +80,12 @@ export default function Header() {
               <h2>Login</h2>
             </Link>
           )}
-          <div>
-            <h3 className=" text-neutral-400">Favorite</h3>
-            <h2>My Wishlist</h2>
-          </div>
+          <Link to="checkout" className="flex items-center gap-2">
+            <div>
+              <h3 className=" text-neutral-400">Favorite</h3>
+              <h2>My Wishlist</h2>
+            </div>
+          </Link>
           <Link to="cart" className="flex items-center gap-2">
             <BsHandbag size={32} />
             <div>

@@ -9,23 +9,26 @@ import CartPage from './pages/Cart';
 import CheckoutPage from './pages/Checkout';
 import NotFoundPage from './routes/not-found';
 import RequireAuth from './routes/requireAuth';
+import PersistLogin from './routes/persistLogin';
 
 export default function App() {
   console.log('app run');
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="products" element={<ShoppingPage />} />
-          <Route path="products/:id" element={<ProductPage />} />
-          <Route path="cart" element={<CartPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="sign-up" element={<SignUpPage />} />
+        <Route element={<PersistLogin />}>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="products" element={<ShoppingPage />} />
+            <Route path="products/:id" element={<ProductPage />} />
+            <Route path="cart" element={<CartPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="sign-up" element={<SignUpPage />} />
 
-          {/* private Routes */}
-          <Route element={<RequireAuth />}>
-            <Route path="checkout" element={<CheckoutPage />} />
+            {/* private Routes */}
+            <Route element={<RequireAuth />}>
+              <Route path="checkout" element={<CheckoutPage />} />
+            </Route>
           </Route>
         </Route>
 

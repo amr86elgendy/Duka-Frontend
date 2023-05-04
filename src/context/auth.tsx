@@ -14,12 +14,14 @@ interface IUser {
 }
 
 type StateType = {
+  status: 'logged_out' | 'logged_in' | 'unknown';
   isAuthenticated: boolean;
   user: IUser | null;
   accessToken: string | null;
 };
 
 const initState: StateType = {
+  status: 'unknown',
   isAuthenticated: false,
   user: null,
   accessToken: null,
@@ -43,6 +45,7 @@ const reducer = (
     case 'SET_USER':
       return {
         ...state,
+        status: 'logged_in',
         isAuthenticated: true,
         user: payload.user,
         accessToken: payload.accessToken,
@@ -51,6 +54,7 @@ const reducer = (
       const user = jwtDecode<IUser>(payload.accessToken);
       return {
         ...state,
+        status: 'logged_in',
         isAuthenticated: true,
         user,
         accessToken: payload.accessToken,
@@ -58,6 +62,7 @@ const reducer = (
     case 'LOGOUT_USER':
       return {
         ...state,
+        status: 'logged_out',
         isAuthenticated: false,
         user: null,
         accessToken: null,

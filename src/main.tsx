@@ -22,11 +22,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <ApiClientMiddleware>
-          <PersistMiddleware>
-            <App />
-          </PersistMiddleware>
-        </ApiClientMiddleware>
+        {/* <ApiClientMiddleware>
+          <PersistMiddleware> */}
+        <App />
+        {/* </PersistMiddleware>
+        </ApiClientMiddleware> */}
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
