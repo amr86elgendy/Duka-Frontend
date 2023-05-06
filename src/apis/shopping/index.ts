@@ -1,21 +1,36 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import {
+  QueryFunctionContext,
+  useInfiniteQuery,
+  useQuery,
+} from '@tanstack/react-query';
 import qs from 'query-string';
 import axiosDefault from '../axios';
+import { TFilterState } from '@/context/filter';
 
 // ######################### Get All Products #########################
-const getProducts = async ({ pageParam = 1, queryKey }: any) => {
-  let filters = {};
+type TGetProductsQueryKey = {
+  filters?: TFilterState;
+  queries?: {
+    [key: string]: string | number;
+  };
+};
+const getProducts = async ({
+  pageParam = 1,
+  queryKey,
+}: QueryFunctionContext<[string, TGetProductsQueryKey]>) => {
+  let filters: Partial<TFilterState> = {};
 
   // console.log(Object.fromEntries(queryKey[1].filters));
-
   if (Object.prototype.hasOwnProperty.call(queryKey[1], 'filters')) {
+    // eslint-disable-next-line no-restricted-syntax
     for (const key in queryKey[1].filters) {
       if (key === 'sort') {
+        // eslint-disable-next-line prefer-destructuring
         filters[key] = queryKey[1].filters[key].split(',')[0];
       } else {
-        filters[key] = queryKey[1].filters[key].map(
-          (f: string) => f.split(',')[0]
-        );
+        filters[key as keyof Omit<TFilterState, 'sort'>] = queryKey[1].filters[
+          key as keyof Omit<TFilterState, 'sort'>
+        ].map((f: string) => f.split(',')[0]);
       }
     }
   }
@@ -34,7 +49,7 @@ const getProducts = async ({ pageParam = 1, queryKey }: any) => {
   return data;
 };
 
-export const useGetProducts = (props: any) => {
+export const useGetProducts = (props: TGetProductsQueryKey) => {
   return useInfiniteQuery({
     queryKey: ['get-products', props],
     queryFn: getProducts,

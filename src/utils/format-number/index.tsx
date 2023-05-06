@@ -8,7 +8,11 @@ export default function FormatNumber({ value }: { value: number }) {
 
   const currency = format.find((el) => el.type === 'currency')?.value;
   const price = format
-    .filter((el) => el.type !== 'price' && el.type !== 'currency')
+    .filter(
+      (el) => el.type !== 'currency'
+      // && el.type !== 'fraction' &&
+      // el.type !== 'decimal'
+    )
     .reduce((p, el) => (p += el.value), '');
 
   return (

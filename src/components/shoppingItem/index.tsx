@@ -1,39 +1,36 @@
-import { AiOutlineEye, AiOutlineHeart, AiOutlineStar } from 'react-icons/ai';
+import { AiOutlineStar, AiOutlineHeart } from 'react-icons/ai';
 import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
 
-type TCardItem = {
-  title: string;
-  src: string;
+type TShoppingItem = {
+  name: string;
   price: number;
+  images: string[];
   _id: string;
 };
 
-export default function CardItem({ title, src, price, _id }: TCardItem) {
+export default function ProductItem({
+  name,
+  price,
+  images,
+  _id,
+}: TShoppingItem) {
   return (
-    <div className="group relative bg-white  flex flex-col p-4  w-[225px]">
-      <div className="relative overflow-hidden w-[177px] h-[177px] mb-2">
+    <div className="flex flex-col p-4 border-r group">
+      <div className="relative flex flex-col mb-2 overflow-hidden ">
         <div className="absolute z-10 px-3 text-sm text-white bg-green-600 rounded-md">
           <p>-7%</p>
         </div>
-        <Link to={`/products/${_id}`}>
+        <Link to={`/products/${_id}`} className="mx-auto ">
           <img
-            className="object-contain w-full h-full transition-all duration-300 cursor-pointer group-hover:scale-110"
-            src={src}
+            className=" cursor-pointer object-contain group-hover:scale-110 transition-all duration-300 w-[230px] h-[230px]"
+            src={images[0]}
             alt="product-img"
           />
         </Link>
+        {/* onHover Container */}
         <div className="absolute top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 -right-10 group-hover:right-0">
-          <div className="relative group/quickview">
-            <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
-              <AiOutlineEye size={24} />
-            </div>
-            <span className="bg-gray-500 text-white absolute z-50 top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover/quickview:visible group-hover/quickview:opacity-100 transition pointer-events-none">
-              Quick View
-            </span>
-          </div>
-
           <div className="relative group/wishlist">
             <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
               <AiOutlineHeart size={24} />
@@ -53,12 +50,13 @@ export default function CardItem({ title, src, price, _id }: TCardItem) {
           </div>
         </div>
       </div>
-
-      {/* ---------------------------- */}
+      {/* ---------- Title & Stars ------------ */}
       <div className="flex flex-col gap-2 mb-2">
+        {/* ---------- Title ------------ */}
         <h1 className="font-semibold text-blue-700 capitalize line-clamp-2">
-          {title}
+          {name}
         </h1>
+        {/* ---------- Stars ------------ */}
         <div className="flex items-center gap-2">
           <div className="flex text-yellow-500 ">
             {[...Array(5).keys()].map((el) => {
@@ -74,15 +72,23 @@ export default function CardItem({ title, src, price, _id }: TCardItem) {
           </div>
         </div>
       </div>
-
+      {/* price */}
       <FormatNumber value={price} />
-
-      <button
-        type="button"
-        className="py-3 mt-auto text-sm font-semibold text-white capitalize bg-red-500 rounded-md"
-      >
-        Add To Cart
-      </button>
+      {/* Buttons */}
+      <div className="flex flex-col gap-2 mt-auto">
+        <button
+          type="button"
+          className="py-3 text-sm font-semibold text-white uppercase bg-red-500 rounded-md"
+        >
+          Add To Cart
+        </button>
+        <button
+          type="button"
+          className="py-3 text-sm font-semibold text-gray-500 uppercase border-2 border-gray-300 rounded-md "
+        >
+          quick view
+        </button>
+      </div>
     </div>
   );
 }

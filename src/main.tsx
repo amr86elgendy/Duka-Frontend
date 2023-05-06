@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App from './App.tsx';
 import { AuthProvider } from './context/auth.tsx';
-import ApiClientMiddleware from './middlewares/apiClient.tsx';
-import PersistMiddleware from './middlewares/persist.tsx';
 import './index.css';
 import './i18n.ts';
+import { FilterProvider } from './context/filter.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,11 +21,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        {/* <ApiClientMiddleware>
+        <FilterProvider>
+          {/* <ApiClientMiddleware>
           <PersistMiddleware> */}
-        <App />
-        {/* </PersistMiddleware>
+          <App />
+          {/* </PersistMiddleware>
         </ApiClientMiddleware> */}
+        </FilterProvider>
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>

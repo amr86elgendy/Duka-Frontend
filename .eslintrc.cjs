@@ -8,6 +8,7 @@ module.exports = {
     'airbnb-typescript',
     'airbnb/hooks',
     'plugin:react/recommended',
+    'plugin:@tanstack/eslint-plugin-query/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
@@ -22,8 +23,10 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@tanstack/query', '@typescript-eslint', 'prettier'],
   rules: {
+    '@tanstack/query/exhaustive-deps': 'error',
+    '@tanstack/query/prefer-query-object-syntax': 'error',
     'react/react-in-jsx-scope': 'off',
     'jsx-quotes': 'off',
     'import/extensions': 'off',
@@ -34,5 +37,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-underscore-dangle': 'off',
+    'no-nested-ternary': 'off',
+    'no-return-assign': 'off',
   },
 };
