@@ -20,7 +20,7 @@ const getProducts = async ({
 }: QueryFunctionContext<[string, TGetProductsQueryKey]>) => {
   let filters: Partial<TFilterState> = {};
 
-  // console.log(Object.fromEntries(queryKey[1].filters));
+  // console.log(queryKey[1].filters);
   if (Object.prototype.hasOwnProperty.call(queryKey[1], 'filters')) {
     // eslint-disable-next-line no-restricted-syntax
     for (const key in queryKey[1].filters) {

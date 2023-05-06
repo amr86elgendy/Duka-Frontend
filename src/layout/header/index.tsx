@@ -76,8 +76,10 @@ export default function Header() {
             <AccountMenu />
           ) : (
             <Link to="login">
-              {/* <h3 className=" text-neutral-400">Login</h3> */}
-              <h2>Login</h2>
+              <h3 className="text-neutral-400">
+                Hello, <span>sign in</span>
+              </h3>
+              <h2 className="capitalize">account & lists</h2>
             </Link>
           )}
           <Link to="checkout" className="flex items-center gap-2">

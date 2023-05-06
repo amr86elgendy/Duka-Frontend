@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { FaSpinner } from 'react-icons/fa';
-import ShoppingItem from '../components/shoppingItem';
+import ShoppingItem from '../components/shopping/shoppingItem';
 import { useGetProducts } from '../apis/shopping';
 import FiltersComponent from '../components/shopping/filtersComponent';
 import SelectedFiltersComponent from '@/components/shopping/selectedFilters';

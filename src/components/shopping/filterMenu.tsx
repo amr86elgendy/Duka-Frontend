@@ -46,7 +46,15 @@ export default function FilterMenu({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-40 py-2 mt-2 overflow-hidden border border-gray-300 rounded-md outline-none w-max bg-gray-50 sm:text-sm">
+          <Listbox.Options
+            className={`absolute z-40 grid py-2 mt-2 overflow-hidden border border-gray-300 rounded-md outline-none w-max bg-gray-50 sm:text-sm ${
+              options.length <= 5
+                ? 'grid-cols-1'
+                : options.length <= 10
+                ? 'grid-cols-2'
+                : 'grid-cols-3'
+            }`}
+          >
             {options.map((option) => (
               <Listbox.Option
                 key={option._id}
