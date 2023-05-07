@@ -11,7 +11,7 @@ export default function ReviewList() {
     hasNextPage,
     isLoading,
     isFetchingNextPage,
-  } = useGetProductReviews({ product: productId });
+  } = useGetProductReviews({ product: productId! });
   if (isLoading) {
     return <div>Loading...</div>;
   }

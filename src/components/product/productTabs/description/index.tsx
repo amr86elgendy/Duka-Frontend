@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
 
-export default function ProductDescription ({ description }) {
+export default function ProductDescription({
+  description,
+}: {
+  description: string;
+}) {
   return <div>{description}</div>;
-};
-
-
+}

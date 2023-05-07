@@ -2,106 +2,113 @@ import { useState } from 'react';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import ReviewList from './list';
 
-export default function ProductReviews({ averageRating, numReviews }) {
-  const [rating, setRating] = useState(null);
+export default function ProductReviews({
+  averageRating,
+  numReviews,
+}: {
+  averageRating: number;
+  numReviews: number;
+}) {
+  const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
-  const [hover, setHover] = useState(null);
+  const [hover, setHover] = useState(0);
   return (
-    <div className='grid grid-cols-2 gap-10'>
-      <div className='flex flex-col'>
-        <div className='pb-6 mb-6 border-b border-gray-300'>
-          <div className='flex items-center gap-4 mb-1'>
-            <h1 className='text-3xl font-semibold text-green-600'>
-              {averageRating} <span className=''>out of 5</span>{' '}
+    <div className="grid grid-cols-2 gap-10">
+      <div className="flex flex-col">
+        <div className="pb-6 mb-6 border-b border-gray-300">
+          <div className="flex items-center gap-4 mb-1">
+            <h1 className="text-3xl font-semibold text-green-600">
+              {averageRating} <span className="">out of 5</span>{' '}
             </h1>
 
-            <div className='flex self-start p-4 text-green-600 bg-gray-100 rounded-full '>
+            <div className="flex self-start p-4 text-green-600 bg-gray-100 rounded-full ">
               <AiFillStar size={24} />
               <AiFillStar size={24} />
               <AiFillStar size={24} />
               <AiFillStar size={24} />
-              <AiFillStar size={24} className='text-gray-300' />
+              <AiFillStar size={24} className="text-gray-300" />
             </div>
           </div>
 
-          <div className='px-4 mb-8 font-semibold text-gray-700 border-2 border-gray-300 rounded-full text-start max-w-max'>
+          <div className="px-4 mb-8 font-semibold text-gray-700 border-2 border-gray-300 rounded-full text-start max-w-max">
             <h3>{numReviews} Reviews</h3>
           </div>
 
-          <div className='flex items-center gap-4 mb-2'>
+          <div className="flex items-center gap-4 mb-2">
             <h3>5 Star</h3>
 
-            <div className='h-2 bg-gray-200 rounded-full w-36'>
-              <div className='w-4/5 h-full bg-green-600 rounded-full'></div>
+            <div className="h-2 bg-gray-200 rounded-full w-36">
+              <div className="w-4/5 h-full bg-green-600 rounded-full" />
             </div>
             <h3>84%</h3>
           </div>
-          <div className='flex items-center gap-4 mb-2'>
+          <div className="flex items-center gap-4 mb-2">
             <h3>4 Star</h3>
 
-            <div className='h-2 bg-gray-200 rounded-full w-36'>
-              <div className='w-1/2 h-full bg-green-600 rounded-full'></div>
+            <div className="h-2 bg-gray-200 rounded-full w-36">
+              <div className="w-1/2 h-full bg-green-600 rounded-full" />
             </div>
             <h3>84%</h3>
           </div>
-          <div className='flex items-center gap-4 mb-2'>
+          <div className="flex items-center gap-4 mb-2">
             <h3>3 Star</h3>
 
-            <div className='h-2 bg-gray-200 rounded-full w-36'>
-              <div className='w-1/3 h-full bg-green-600 rounded-full'></div>
+            <div className="h-2 bg-gray-200 rounded-full w-36">
+              <div className="w-1/3 h-full bg-green-600 rounded-full" />
             </div>
             <h3>84%</h3>
           </div>
-          <div className='flex items-center gap-4 mb-2'>
+          <div className="flex items-center gap-4 mb-2">
             <h3>2 Star</h3>
 
-            <div className='h-2 bg-gray-200 rounded-full w-36'>
-              <div className='w-1/4 h-full bg-green-600 rounded-full'></div>
+            <div className="h-2 bg-gray-200 rounded-full w-36">
+              <div className="w-1/4 h-full bg-green-600 rounded-full" />
             </div>
             <h3>84%</h3>
           </div>
-          <div className='flex items-center gap-4 mb-2'>
+          <div className="flex items-center gap-4 mb-2">
             <h3>1 Star</h3>
 
-            <div className='h-2 bg-gray-200 rounded-full w-36'>
-              <div className='w-0 h-full bg-green-600 rounded-full '></div>
+            <div className="h-2 bg-gray-200 rounded-full w-36">
+              <div className="w-0 h-full bg-green-600 rounded-full " />
             </div>
             <h3>84%</h3>
           </div>
         </div>
 
-        <div className=''>
-          <h1 className='mb-4 text-3xl font-semibold text-gray-700'>
+        <div className="">
+          <h1 className="mb-4 text-3xl font-semibold text-gray-700">
             Overall rating
           </h1>
-          <div className='flex gap-2 mb-1 text-gray-400'>
-            {[...Array(5)].map((star, i) => {
+          <div className="flex gap-2 mb-1 text-gray-400">
+            {[...Array(5).keys()].map((i) => {
               const ratingValue = i + 1;
               return (
                 <label key={i}>
-                  <div
+                  <button
+                    type="button"
                     onClick={() => setRating(ratingValue)}
                     className={
-                      ratingValue <= (rating || hover)
-                        ? 'cursor-pointer p-2 border rounded-md group '
+                      ratingValue <= (rating || hover)!
+                        ? 'cursor-pointer p-2 border rounded-md group'
                         : 'cursor-pointer p-2 border rounded-md'
                     }
                     onMouseEnter={() => setHover(ratingValue)}
-                    onMouseLeave={() => setHover(null)}
+                    onMouseLeave={() => setHover(0)}
                   >
                     {ratingValue <= (rating || hover) ? (
-                      <AiFillStar className={'text-yellow-500 '} size={32} />
+                      <AiFillStar className="text-yellow-500" size={32} />
                     ) : (
                       <AiOutlineStar
-                        className={'group-hover:text-white'}
+                        className="group-hover:text-white"
                         size={32}
                       />
                     )}
-                  </div>
+                  </button>
                   <input
-                    type='radio'
-                    className='hidden'
-                    name='rating'
+                    type="radio"
+                    className="hidden"
+                    name="rating"
                     value={ratingValue}
                   />
                 </label>
@@ -109,25 +116,25 @@ export default function ProductReviews({ averageRating, numReviews }) {
             })}
           </div>
           {rating ? (
-            <p className='mb-6 text-sm text-gray-400'>
+            <p className="mb-6 text-sm text-gray-400">
               Your rating is {rating} star
             </p>
           ) : (
-            <p className='mb-6 text-sm text-gray-400'>Click To Rate</p>
+            <p className="mb-6 text-sm text-gray-400">Click To Rate</p>
           )}
-          <form className='flex flex-col gap-6'>
-            <div className='flex flex-col '>
+          <form className="flex flex-col gap-6">
+            <div className="flex flex-col ">
               <label
-                className='font-semibold text-gray-700'
-                htmlFor='review-title'
+                className="font-semibold text-gray-700"
+                htmlFor="review-title"
               >
                 Your Review
               </label>
               <input
-                className='p-2 border-2 border-gray-200 rounded-md outline-none'
-                type='text'
-                id='review-title'
-                placeholder='Example: Easy To Use'
+                className="p-2 border-2 border-gray-200 rounded-md outline-none"
+                type="text"
+                id="review-title"
+                placeholder="Example: Easy To Use"
               />
             </div>
             {/* <h3 className='font-semibold text-gray-700'>
@@ -230,8 +237,8 @@ export default function ProductReviews({ averageRating, numReviews }) {
               </label>
             </div> */}
             <button
-              type='submit'
-              className='self-stretch py-3 font-semibold text-white bg-red-500 rounded-md'
+              type="submit"
+              className="self-stretch py-3 font-semibold text-white bg-red-500 rounded-md"
             >
               Submit
             </button>

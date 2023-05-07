@@ -8,7 +8,6 @@ import ProductTabs from '@/components/product/productTabs';
 
 export default function ProductPage() {
   const { productId } = useParams();
-  console.log(productId);
 
   const { data: product, isLoading, isError } = useGetSingleProduct(productId!);
 
@@ -33,11 +32,13 @@ export default function ProductPage() {
       </div>
       {/* ----------------- Desc & Rviews ----------------- */}
       <div className="p-8 bg-white rounded-md">
-        <ProductTabs
-          description={product?.description}
-          numReviews={product?.numReviews}
-          averageRating={product?.averageRating}
-        />
+        {product && (
+          <ProductTabs
+            description={product.description}
+            numReviews={product.numReviews}
+            averageRating={product.averageRating}
+          />
+        )}
       </div>
     </div>
   );

@@ -7,6 +7,29 @@ import qs from 'query-string';
 import axiosDefault from '../axios';
 import { TFilterState } from '@/context/filter';
 
+type TProduct<T> = {
+  _id: string;
+  averageRating: number;
+  brand: T;
+  category: T;
+  subCategory: T;
+  colors: string[];
+  createdAt: string;
+  description: string;
+  featured: boolean;
+  freeShipping: boolean;
+  images: string[];
+  name: string;
+  numReviews: number;
+  price: number;
+  quantity: number;
+  sizes: string[];
+  slug: string;
+  sold: number;
+  updatedAt: string;
+  user: string;
+};
+
 // ######################### Get All Products #########################
 type TGetProductsQueryKey = {
   filters?: TFilterState;
@@ -63,25 +86,29 @@ export const useGetProducts = (props: TGetProductsQueryKey) => {
 };
 // ######################### Get Single Product #########################
 
-async function getProduct(productId: string) {
+async function getProduct(
+  productId: string
+): Promise<TProduct<{ _id: string; name: string }>> {
   const { data } = await axiosDefault({
     url: `/products/${productId}`,
     method: 'GET',
   });
-  return data;
+  return data.product;
 }
 
 export const useGetSingleProduct = (productId: string) => {
   return useQuery({
     queryKey: ['get-single-product', productId],
     queryFn: () => getProduct(productId),
-    select: (data) => data.product,
   });
 };
 
 // ######################### Get Similar Products #########################
 
-async function getSimilarProducts({ productId, ...rest }: Record<string, any>) {
+async function getSimilarProducts({
+  productId,
+  ...rest
+}: Record<string, string | number>): Promise<TProduct<string>[]> {
   const queryStr = qs.stringify(rest, {
     skipNull: true,
   });
@@ -90,20 +117,24 @@ async function getSimilarProducts({ productId, ...rest }: Record<string, any>) {
     url: `/products/${productId}/similar?${queryStr}`,
     method: 'GET',
   });
-  return data;
+  return data.products;
 }
 
-export const useGetSimilarProducts = (props: Record<string, any>) => {
+export const useGetSimilarProducts = (
+  props: Record<string, string | number>
+) => {
   return useQuery({
     queryKey: ['get-similar-products', props],
     queryFn: () => getSimilarProducts(props),
-    select: (data) => data.products,
   });
 };
 
 // ######################### Get Product Review #########################
 
-async function getProductReviews({ pageParam = 1, queryKey }: any) {
+async function getProductReviews({
+  pageParam = 1,
+  queryKey,
+}: QueryFunctionContext<[string, Record<string, string>]>) {
   const queryStr = qs.stringify(queryKey[1], {
     arrayFormat: 'bracket',
     skipEmptyString: true,
@@ -117,7 +148,7 @@ async function getProductReviews({ pageParam = 1, queryKey }: any) {
   return data;
 }
 
-export const useGetProductReviews = (props: any) => {
+export const useGetProductReviews = (props: Record<string, string>) => {
   return useInfiniteQuery({
     queryKey: ['get-product-reviews', props],
     queryFn: getProductReviews,

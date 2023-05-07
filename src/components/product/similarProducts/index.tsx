@@ -6,7 +6,7 @@ import { useGetSimilarProducts } from '@/apis/shopping';
 export default function SimilarProducts() {
   const { productId } = useParams();
   const { data: similarProducts } = useGetSimilarProducts({
-    productId,
+    productId: productId!,
     limit: 3,
   });
 
@@ -22,8 +22,8 @@ export default function SimilarProducts() {
         </div>
       </div>
       <div className="grid grid-rows-[repeat(3,minmax(150px,33%))] gap-4">
-        {similarProducts?.map((product: any) => (
-          <ListItem key={product.id} {...product} />
+        {similarProducts?.map((product) => (
+          <ListItem key={product._id} {...product} />
         ))}
       </div>
     </div>

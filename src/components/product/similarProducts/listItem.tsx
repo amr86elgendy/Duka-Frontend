@@ -32,9 +32,9 @@ export default function ListItem({
         <div className="flex justify-between gap-2 ">
           <Link
             to={`products/${_id}`}
-            className="block mb-2 text-sm font-semibold text-gray-700 capitalize hover:text-red-500 line-clamp-2"
+            className="block mb-2 text-sm font-semibold text-gray-700 capitalize hover:text-red-500"
           >
-            {name}
+            {name.substring(0, 30)} ...
           </Link>
           <p className="flex-shrink-0 text-xs text-green-600">
             {quantity} in stock
