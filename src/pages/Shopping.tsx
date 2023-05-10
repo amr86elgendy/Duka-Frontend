@@ -38,7 +38,7 @@ export default function ShoppingPage() {
   // console.log('products components run');
   if (error) return <Error />;
   return (
-    <div className="2xl:w-[1570px] w-11/12 m-auto min-h-screen bg-white rounded-md p-6">
+    <div className="container min-h-screen py-6 bg-white rounded-md">
       <h1 className="mb-12 text-3xl font-semibold">All Products</h1>
       <div className="pb-4 border-b border-gray-300 ">
         <div className="flex items-center justify-between mb-2">

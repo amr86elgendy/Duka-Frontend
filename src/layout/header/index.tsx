@@ -82,7 +82,7 @@ export default function Header() {
               <h2 className="capitalize">account & lists</h2>
             </Link>
           )}
-          <Link to="checkout" className="flex items-center gap-2">
+          <Link to="wishlist" className="flex items-center gap-2">
             <div>
               <h3 className=" text-neutral-400">Favorite</h3>
               <h2>My Wishlist</h2>

@@ -6,6 +6,7 @@ import SignUpPage from './pages/SignUp';
 import ShoppingPage from './pages/Shopping';
 import ProductPage from './pages/Product';
 import CartPage from './pages/Cart';
+import WishlistPage from './pages/Wishlist';
 import CheckoutPage from './pages/Checkout';
 import NotFoundPage from './routes/not-found';
 import RequireAuth from './routes/requireAuth';
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="products" element={<ShoppingPage />} />
             <Route path="products/:productId" element={<ProductPage />} />
             <Route path="cart" element={<CartPage />} />
+            <Route path="wishlist" element={<WishlistPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="sign-up" element={<SignUpPage />} />
 

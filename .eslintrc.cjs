@@ -28,6 +28,7 @@ module.exports = {
     '@tanstack/query/exhaustive-deps': 'error',
     '@tanstack/query/prefer-query-object-syntax': 'error',
     'react/react-in-jsx-scope': 'off',
+    'react-hooks/exhaustive-deps': 'off',
     'jsx-quotes': 'off',
     'import/extensions': 'off',
     'no-param-reassign': 'off',

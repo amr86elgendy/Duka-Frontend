@@ -3,6 +3,35 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { axiosPrivate } from '../axios';
 import { useAuthContext } from '@/context/auth';
 
+// ######################## Sign Up ############################
+async function register(user: {
+  name: string;
+  email: string;
+  password: string;
+}) {
+  const { data } = await axiosPrivate({
+    url: '/auth/register',
+    method: 'POST',
+    data: user,
+  });
+  return data;
+}
+
+export function useRegister() {
+  const location = useLocation();
+  const from = location.state?.from.pathname || '/';
+  const { dispatch } = useAuthContext();
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: register,
+    onSuccess: (data) => {
+      dispatch('SET_USER', data);
+      navigate(from, { replace: true });
+    },
+  });
+}
+
 // ######################## Login ############################
 const login = async (user: { email: string; password: string }) => {
   const { data } = await axiosPrivate({

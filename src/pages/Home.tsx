@@ -4,10 +4,10 @@ import Category from '@/components/home/category';
 
 export default function HomePage() {
   return (
-    <div className="container min-h-screen">
+    <section className="container min-h-screen">
       <Hero />
       <NewArrival />
       <Category />
-    </div>
+    </section>
   );
 }

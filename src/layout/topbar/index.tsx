@@ -36,7 +36,7 @@ export default function Topbar() {
           {t('topbar-sale')}
         </div>
         <ul className="flex justify-self-end">
-          <li className="items-center hidden sm:flex">
+          <li className="items-center hidden sm:flex sm:gap-1">
             <FiPhoneCall className="ltr:mr-2 rtl:ml-2" />
             0123456789
           </li>

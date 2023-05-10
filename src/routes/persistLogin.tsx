@@ -6,7 +6,9 @@ import { useRefreshToken } from '@/apis/auth';
 
 export default function PersistLogin() {
   const [isLoading, setLoading] = useState(true);
-  const rememberMe = JSON.parse(localStorage.getItem('ishop-remember-me')!);
+  const rememberMe = localStorage.getItem('ishop-remember-me')
+    ? JSON.parse(localStorage.getItem('ishop-remember-me')!)
+    : undefined;
   const { isAuthenticated, status, dispatch } = useAuthContext();
 
   console.log('Persist login run');

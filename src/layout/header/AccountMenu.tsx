@@ -1,22 +1,32 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { FaChevronDown } from 'react-icons/fa';
 import { IoHelpCircleOutline, IoLogOutOutline } from 'react-icons/io5';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { useLogout } from '@/apis/auth';
+import { useAuthContext } from '@/context/auth';
+import { ChevronDownIcon } from '@/assets/icons';
 
 export default function AccountMenu() {
   const { refetch: logoutUser } = useLogout();
+  const { user } = useAuthContext();
 
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white capitalize rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-          my account
-          <FaChevronDown
-            className="ml-2 -mr-1 text-violet-200 hover:text-violet-100"
-            aria-hidden="true"
-          />
+        <Menu.Button className="inline-flex flex-col w-full text-sm text-white capitalize focus:outline-none">
+          <h3 className="text-neutral-400">
+            Hello,{' '}
+            <span className="font-medium">{user?.name.split(' ')[0]}</span>
+          </h3>
+          <div className="inline-flex justify-center gap-1">
+            <h2 className="capitalize">account & lists</h2>
+            <ChevronDownIcon
+              stroke="white"
+              fill="white"
+              width={20}
+              height={20}
+            />
+          </div>
         </Menu.Button>
       </div>
       <Transition
