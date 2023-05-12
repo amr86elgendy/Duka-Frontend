@@ -5,7 +5,7 @@ import avatar from '@/assets/avatar.svg';
 type TReviewComment = {
   comment: string;
   rating: number;
-  user: { name: string; email: string; role: string };
+  user: { _id: string; name: string };
   updatedAt: string;
 };
 

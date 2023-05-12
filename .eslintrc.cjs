@@ -30,6 +30,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'jsx-quotes': 'off',
+    'no-plusplus': 'off',
     'import/extensions': 'off',
     'no-param-reassign': 'off',
     'no-case-declarations': 'off',

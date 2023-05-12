@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import ReviewList from './list';
+import RatingStars from '@/utils/ratingStars';
 
 export default function ProductReviews({
   averageRating,
@@ -22,11 +23,7 @@ export default function ProductReviews({
             </h1>
 
             <div className="flex self-start p-4 text-green-600 bg-gray-100 rounded-full ">
-              <AiFillStar size={24} />
-              <AiFillStar size={24} />
-              <AiFillStar size={24} />
-              <AiFillStar size={24} />
-              <AiFillStar size={24} className="text-gray-300" />
+              <RatingStars averageRating={averageRating} />
             </div>
           </div>
 

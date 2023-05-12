@@ -31,6 +31,14 @@ type TProduct<T> = {
 };
 
 // ######################### Get All Products #########################
+type TGetProductsReturn = {
+  currentPage: number;
+  lastPage: number;
+  pageCount: number;
+  products: TProduct<{ _id: string; name: string }>[];
+  totalCount: number;
+};
+
 type TGetProductsQueryKey = {
   filters?: TFilterState;
   queries?: {
@@ -40,8 +48,10 @@ type TGetProductsQueryKey = {
 const getProducts = async ({
   pageParam = 1,
   queryKey,
-}: QueryFunctionContext<[string, TGetProductsQueryKey]>) => {
-  let filters: Partial<TFilterState> = {};
+}: QueryFunctionContext<
+  [string, TGetProductsQueryKey]
+>): Promise<TGetProductsReturn> => {
+  let filters = {} as TFilterState;
 
   // console.log(queryKey[1].filters);
   if (Object.prototype.hasOwnProperty.call(queryKey[1], 'filters')) {
@@ -88,18 +98,19 @@ export const useGetProducts = (props: TGetProductsQueryKey) => {
 
 async function getProduct(
   productId: string
-): Promise<TProduct<{ _id: string; name: string }>> {
+): Promise<{ product: TProduct<{ _id: string; name: string }> }> {
   const { data } = await axiosDefault({
     url: `/products/${productId}`,
     method: 'GET',
   });
-  return data.product;
+  return data;
 }
 
 export const useGetSingleProduct = (productId: string) => {
   return useQuery({
     queryKey: ['get-single-product', productId],
     queryFn: () => getProduct(productId),
+    select: (data) => data.product,
   });
 };
 
@@ -108,7 +119,7 @@ export const useGetSingleProduct = (productId: string) => {
 async function getSimilarProducts({
   productId,
   ...rest
-}: Record<string, string | number>): Promise<TProduct<string>[]> {
+}: Record<string, string | number>): Promise<{ products: TProduct<string>[] }> {
   const queryStr = qs.stringify(rest, {
     skipNull: true,
   });
@@ -117,7 +128,7 @@ async function getSimilarProducts({
     url: `/products/${productId}/similar?${queryStr}`,
     method: 'GET',
   });
-  return data.products;
+  return data;
 }
 
 export const useGetSimilarProducts = (
@@ -126,37 +137,6 @@ export const useGetSimilarProducts = (
   return useQuery({
     queryKey: ['get-similar-products', props],
     queryFn: () => getSimilarProducts(props),
-  });
-};
-
-// ######################### Get Product Review #########################
-
-async function getProductReviews({
-  pageParam = 1,
-  queryKey,
-}: QueryFunctionContext<[string, Record<string, string>]>) {
-  const queryStr = qs.stringify(queryKey[1], {
-    arrayFormat: 'bracket',
-    skipEmptyString: true,
-    skipNull: true,
-  });
-
-  const { data } = await axiosDefault({
-    url: `/reviews?page=${pageParam}&${queryStr}`,
-    method: 'GET',
-  });
-  return data;
-}
-
-export const useGetProductReviews = (props: Record<string, string>) => {
-  return useInfiniteQuery({
-    queryKey: ['get-product-reviews', props],
-    queryFn: getProductReviews,
-    getNextPageParam: ({ currentPage, lastPage }) => {
-      if (currentPage < lastPage) {
-        return currentPage + 1;
-      }
-      return undefined;
-    },
+    select: (data) => data.products,
   });
 };

@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import SimilarProducts from '@/components/product/similarProducts';
-import ProductDetail from '@/components/product/productDetails';
+import ProductDetail from '@/components/product/details';
 import { useGetSingleProduct } from '@/apis/shopping';
-import Error from './Error';
 import SingleProductSkeleton from '@/components/product/skeleton';
 import ProductTabs from '@/components/product/productTabs';
+import Error from './Error';
 
 export default function ProductPage() {
   const { productId } = useParams();
@@ -14,6 +14,7 @@ export default function ProductPage() {
   if (isError) {
     return <Error />;
   }
+
   return (
     <div className="container min-h-scree">
       <div className="grid grid-cols-[5fr_2fr] w-full gap-4  mb-8">

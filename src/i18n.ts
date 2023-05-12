@@ -27,6 +27,4 @@ i18n
     },
   });
 
-// console.log(i18n.t('cake', {count: 1}))
-
 export default i18n;

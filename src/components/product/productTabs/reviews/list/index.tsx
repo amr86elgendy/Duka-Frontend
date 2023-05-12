@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetProductReviews } from '@/apis/shopping';
+import { useGetProductReviews } from '@/apis/shopping/reviews';
 import ReviewComment from '../comment';
 
 export default function ReviewList() {

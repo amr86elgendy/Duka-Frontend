@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { AiOutlineStar } from 'react-icons/ai';
 // import { showReview } from '../../../store/features/productDetailSlice';
 // import Model from '@/components/Model';
 import FormatNumber from '@/utils/format-number';
+import RatingStars from '@/utils/ratingStars';
 
 type TProductDetail = {
   _id: string;
@@ -11,6 +11,7 @@ type TProductDetail = {
   images: string[];
   name: string;
   numReviews: number;
+  averageRating: number;
   price: number;
 };
 
@@ -21,6 +22,7 @@ export default function ProductDetail({
   images,
   name,
   numReviews,
+  averageRating,
   price,
 }: TProductDetail) {
   const addReviewHandler = () => {
@@ -33,16 +35,16 @@ export default function ProductDetail({
     }, 1);
   };
 
-  const [shownPicture, setShownPicture] = useState('');
-  useEffect(() => {
-    setShownPicture(images[0]);
-  }, [images]);
+  const [activeImg, setActiveImg] = useState('');
 
-  // const isOpen = useSelector((state) => state.model.isOpen);
+  useEffect(() => {
+    setActiveImg(images[0]);
+    return () => console.log('clean up');
+  }, [images]);
 
   return (
     <>
-      {/* {isOpen && <Model shownPicture={shownPicture} />} */}
+      {/* {isOpen && <Model ActiveImg={ActiveImg} />} */}
       <div className="grid grid-cols-2 gap-8">
         {/* --------- IMG ----------- */}
         <div className="flex flex-col gap-4 ">
@@ -52,27 +54,28 @@ export default function ProductDetail({
           >
             <img
               className="w-[505px] h-[505px] object-contain"
-              src={shownPicture}
+              src={activeImg}
               alt=""
             />
           </div>
           <div className="flex gap-4">
             {images.map((image) => (
-              <div
+              <button
+                type="button"
                 key={image}
                 className={`border rounded-md cursor-pointer w-[70px] h-[70px] overflow-hidden ${
-                  image === shownPicture ? 'border-red-500' : 'border-gray-300'
+                  image === activeImg ? 'border-red-500' : 'border-gray-300'
                 }`}
-                // onClick={() => {
-                //   setShownPicture(image);
-                // }}
+                onClick={() => {
+                  setActiveImg(image);
+                }}
               >
                 <img
                   className="object-contain w-full h-full"
                   src={image}
                   alt=""
                 />
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -81,13 +84,7 @@ export default function ProductDetail({
         <div className="flex flex-col">
           <h1 className="mb-2 text-2xl font-semibold text-blue-700">{name}</h1>
           <div className="flex items-center gap-4 mb-4">
-            <div className="flex text-yellow-500 ">
-              <AiOutlineStar />
-              <AiOutlineStar />
-              <AiOutlineStar />
-              <AiOutlineStar />
-              <AiOutlineStar className="text-gray-400" />
-            </div>
+            <RatingStars averageRating={averageRating} />
             <p className="px-4 text-sm text-gray-400 border-l border-r">
               {numReviews} review
             </p>
