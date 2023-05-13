@@ -31,7 +31,7 @@ export default function ListItem({
       <div className="flex flex-col ">
         <div className="flex justify-between gap-2 ">
           <Link
-            to={`products/${_id}`}
+            to={`/products/${_id}`}
             className="block mb-2 text-sm font-semibold text-gray-700 capitalize hover:text-red-500"
           >
             {name.substring(0, 30)} ...

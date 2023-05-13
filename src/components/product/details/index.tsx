@@ -25,16 +25,6 @@ export default function ProductDetail({
   averageRating,
   price,
 }: TProductDetail) {
-  const addReviewHandler = () => {
-    // dispatch(showReview());
-    setTimeout(() => {
-      window.scroll({
-        top: 860,
-        behavior: 'smooth',
-      });
-    }, 1);
-  };
-
   const [activeImg, setActiveImg] = useState('');
 
   useEffect(() => {
@@ -91,7 +81,12 @@ export default function ProductDetail({
             <button
               type="button"
               className="text-sm text-gray-400 capitalize hover:text-red-500"
-              onClick={addReviewHandler}
+              onClick={() =>
+                window.scroll({
+                  top: 860,
+                  behavior: 'smooth',
+                })
+              }
             >
               Add your review
             </button>

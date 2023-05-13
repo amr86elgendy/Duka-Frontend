@@ -11,6 +11,7 @@ interface IUser {
   name: string;
   email: string;
   role: 'admin' | 'user';
+  _id: string;
 }
 
 type StateType = {
@@ -51,12 +52,13 @@ const reducer = (
         accessToken: payload.accessToken,
       };
     case 'REFRESH_ACCESS_TOKEN':
-      const user = jwtDecode<IUser>(payload.accessToken);
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { name, email, role, _id } = jwtDecode<IUser>(payload.accessToken);
       return {
         ...state,
         status: 'logged_in',
         isAuthenticated: true,
-        user,
+        user: { name, email, role, _id },
         accessToken: payload.accessToken,
       };
     case 'LOGOUT_USER':

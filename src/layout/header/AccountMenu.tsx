@@ -18,14 +18,9 @@ export default function AccountMenu() {
             Hello,{' '}
             <span className="font-medium">{user?.name.split(' ')[0]}</span>
           </h3>
-          <div className="inline-flex justify-center gap-1">
+          <div className="inline-flex items-center justify-center gap-1">
             <h2 className="capitalize">account & lists</h2>
-            <ChevronDownIcon
-              stroke="white"
-              fill="white"
-              width={20}
-              height={20}
-            />
+            <ChevronDownIcon stroke="white" width={14} height={14} />
           </div>
         </Menu.Button>
       </div>
