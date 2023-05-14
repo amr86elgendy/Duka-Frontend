@@ -38,42 +38,44 @@ export default function ShoppingPage() {
   // console.log('products components run');
   if (error) return <Error />;
   return (
-    <div className="container min-h-screen py-6 bg-white rounded-md">
-      <h1 className="mb-12 text-3xl font-semibold">All Products</h1>
-      <div className="pb-4 border-b border-gray-300 ">
-        <div className="flex items-center justify-between mb-2">
-          <FiltersComponent />
-          {data && (
-            <p className="text-gray-400 ">{data.pages[0].totalCount} Items</p>
+    <section className="container">
+      <div className="px-4 py-6 bg-white rounded-md">
+        <h1 className="mb-12 text-3xl font-semibold">All Products</h1>
+        <div className="pb-4 border-b border-gray-300 ">
+          <div className="flex items-center justify-between mb-2">
+            <FiltersComponent />
+            {data && (
+              <p className="text-gray-400 ">{data.pages[0].totalCount} Items</p>
+            )}
+          </div>
+          <SelectedFiltersComponent filters={selectedFilters} />
+        </div>
+
+        <div className="grid grid-cols-4 mb-8">
+          {isLoading ? (
+            [...Array(12).keys()].map((el) => <ProductSkeleton key={el} />)
+          ) : products.length === 0 ? (
+            <h1>no items matches your filter</h1>
+          ) : (
+            products.map((p) => <ShoppingItem {...p} key={p._id} />)
           )}
         </div>
-        <SelectedFiltersComponent filters={selectedFilters} />
-      </div>
-
-      <div className="grid grid-cols-4 mb-8">
-        {isLoading ? (
-          [...Array(12).keys()].map((el) => <ProductSkeleton key={el} />)
-        ) : products.length === 0 ? (
-          <h1>no items matches your filter</h1>
-        ) : (
-          products.map((p) => <ShoppingItem {...p} key={p._id} />)
+        {hasNextPage && (
+          <div className="flex justify-center w-full ">
+            <button
+              type="button"
+              onClick={() => fetchNextPage()}
+              className="flex items-center justify-center h-10 px-4 py-2 text-white bg-gray-600 rounded-md w-28"
+            >
+              {isFetchingNextPage ? (
+                <FaSpinner className=" animate-spin" />
+              ) : (
+                'Load More'
+              )}
+            </button>
+          </div>
         )}
       </div>
-      {hasNextPage && (
-        <div className="flex justify-center w-full ">
-          <button
-            type="button"
-            onClick={() => fetchNextPage()}
-            className="flex items-center justify-center h-10 px-4 py-2 text-white bg-gray-600 rounded-md w-28"
-          >
-            {isFetchingNextPage ? (
-              <FaSpinner className=" animate-spin" />
-            ) : (
-              'Load More'
-            )}
-          </button>
-        </div>
-      )}
-    </div>
+    </section>
   );
 }

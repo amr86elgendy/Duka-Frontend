@@ -16,8 +16,8 @@ export default function FormatNumber({ value }: { value: number }) {
     .reduce((p, el) => (p += el.value), '');
 
   return (
-    <h3 className="flex items-start gap-1 mb-4 text-xl font-semibold text-neutral-900">
-      <span className="text-sm font-light">{currency}</span> {price}
-    </h3>
+    <span className="flex items-start gap-1 text-xl font-semibold text-neutral-900">
+      <span className="text-xs font-light">{currency}</span> {price}
+    </span>
   );
 }

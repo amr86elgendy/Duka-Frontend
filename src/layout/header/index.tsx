@@ -4,9 +4,12 @@ import { BiChevronDown } from 'react-icons/bi';
 import { FiSearch } from 'react-icons/fi';
 import AccountMenu from './AccountMenu';
 import { useAuthContext } from '@/context/auth';
+import { useCartContext } from '@/context/cart';
 
 export default function Header() {
   const { isAuthenticated } = useAuthContext();
+  const { cart: { totalPrice, totalItems } } = useCartContext();
+  
   return (
     <header className="bg-[#181F2B] py-6">
       <div className="container flex items-center justify-between text-white">
@@ -89,10 +92,13 @@ export default function Header() {
             </div>
           </Link>
           <Link to="cart" className="flex items-center gap-2">
-            <BsHandbag size={32} />
+            <div className="relative">
+              <BsHandbag size={32} />
+              <span className='absolute top-0 flex items-center justify-center w-4 h-4 bg-red-500 rounded-full -left-2'>{totalItems}</span>
+            </div>
             <div>
               <h3 className=" text-neutral-400">Your Cart</h3>
-              <h2>$0.00</h2>
+              <h2>${totalPrice.toFixed(2)}</h2>
             </div>
           </Link>
         </div>

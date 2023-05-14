@@ -16,7 +16,7 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="container min-h-scree">
+    <section className="container">
       <div className="grid grid-cols-[5fr_2fr] w-full gap-4  mb-8">
         {/* ----------------- Product ----------------- */}
         {isLoading ? (
@@ -41,6 +41,6 @@ export default function ProductPage() {
           />
         )}
       </div>
-    </div>
+    </section>
   );
 }

@@ -4,39 +4,49 @@ import {
   useReducer,
   ReactElement,
   useMemo,
+  useEffect,
 } from 'react';
+import { useGetCart } from '@/apis/cart';
+
+type TCartItem = {
+  product: {
+    _id: string;
+    name: string;
+    price: number;
+    images: string[];
+  };
+  selectedColor: {
+    _id: string;
+    name: string;
+  };
+  selectedSize: string;
+  amount: number;
+  totalProductPrice: number;
+  _id: string;
+};
 
 export type TCart = {
   _id: string;
   user: string;
-  items: [
-    {
-      product: {
-        _id: string;
-        name: string;
-        price: number;
-      };
-      selectedColor: {
-        _id: string;
-        name: string;
-      };
-      selectedSize: string;
-      amount: number;
-      totalProductPrice: number;
-      _id: string;
-    }
-  ];
+  items: TCartItem[];
   totalItems: number;
   totalPrice: number;
-  shipping_fee: number;
+  shippingFee: number;
 };
 
 type StateType = {
-  cart: TCart | null;
+  cart: TCart;
 };
 
 const initState: StateType = {
-  cart: null,
+  cart: {
+    _id: '',
+    user: '',
+    items: [],
+    totalItems: 0,
+    totalPrice: 0,
+    shippingFee: 0,
+  },
 };
 
 export type CartActionType = 'SET_CART' | 'REMOVE_CART';
@@ -57,10 +67,7 @@ const reducer = (
         cart: payload.cart,
       };
     case 'REMOVE_CART':
-      return {
-        ...state,
-        cart: null,
-      };
+      return initState;
     default:
       throw new Error(`there is no type called ${type}`);
   }
@@ -81,12 +88,17 @@ export function CartProvider({
   children?: ReactElement | ReactElement[] | undefined;
 }): ReactElement {
   const [state, defaultDispatch] = useReducer(reducer, initState);
+  const { data } = useGetCart();
 
   const dispatch = (type: CartActionType, payload?: any) =>
     defaultDispatch({ type, payload });
   const value = useMemo(() => ({ ...state, dispatch }), [state]);
-
   console.log('cart context run');
+  useEffect(() => {
+    if (data) {
+      dispatch('SET_CART', { cart: data });
+    }
+  }, [data]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

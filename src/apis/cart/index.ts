@@ -2,29 +2,84 @@ import {
   QueryFunctionContext,
   useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query';
-import { axiosPrivate } from '../axios';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { useAuthContext } from '@/context/auth';
 import { TCart, useCartContext } from '@/context/cart';
 
 // ######################### Get Cart #########################
-async function getCart(): Promise<{ cart: TCart }> {
-  const { data } = await axiosPrivate({
-    url: '/carts',
-    method: 'GET',
-  });
-  return data;
-}
-
-// eslint-disable-next-line import/prefer-default-export
-export const useGetCart = () => {
+export function useGetCart() {
+  const axiosPrivate = useAxiosPrivate();
   const { isAuthenticated } = useAuthContext();
   const { dispatch } = useCartContext();
   return useQuery({
     queryKey: ['get-cart'],
-    queryFn: getCart,
+    queryFn: async (): Promise<{ cart: TCart }> => {
+      const { data } = await axiosPrivate({
+        url: '/carts',
+        method: 'GET',
+      });
+      return data;
+    },
     enabled: isAuthenticated,
     select: (data) => data.cart,
     onSuccess: (data) => dispatch('SET_CART', data),
   });
-};
+}
+
+// ######################### Increase Item By One #########################
+export function useAddToCart(cartData: {
+  amount: number;
+  color: string;
+  productId: string;
+  size: string;
+}) {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<{ cart: TCart }> => {
+      const { data } = await axiosPrivate({
+        url: `/carts`,
+        method: 'POST',
+        data: cartData,
+      });
+      return data;
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+  });
+}
+// ######################### Increase Item By One #########################
+export function useIncreaseItemByOne(itemId: string) {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<{ cart: TCart }> => {
+      const { data } = await axiosPrivate({
+        url: `/carts/${itemId}/increase-one`,
+        method: 'POST',
+      });
+      return data;
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+  });
+}
+
+// ######################### Reduce Item By One #########################
+export function useReduceItemByOne(itemId: string) {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<{ cart: TCart }> => {
+      const { data } = await axiosPrivate({
+        url: `/carts/${itemId}/reduce-one`,
+        method: 'POST',
+      });
+      return data;
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+  });
+}

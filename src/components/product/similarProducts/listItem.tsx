@@ -50,7 +50,7 @@ export default function ListItem({
           </div>
           <p className="text-sm text-gray-400">01 review</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-4">
           <FormatNumber value={price} />
           <h3 className="text-gray-500 line-through">$599.99</h3>
         </div>
