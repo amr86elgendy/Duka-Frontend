@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsHandbag } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
@@ -5,12 +6,16 @@ import { FiSearch } from 'react-icons/fi';
 import AccountMenu from './AccountMenu';
 import { useAuthContext } from '@/context/auth';
 import { useCartContext } from '@/context/cart';
+import FormatNumber from '@/utils/format-number';
+import ModalView from '@/utils/modal';
+import useToggle from '@/hooks/useToggle';
 
 export default function Header() {
   const { isAuthenticated } = useAuthContext();
   const {
     cart: { totalPrice, totalItems },
   } = useCartContext();
+  const [openSideCart, toggleSideCart] = useToggle();
 
   return (
     <>
@@ -94,21 +99,32 @@ export default function Header() {
                 <h2>My Wishlist</h2>
               </div>
             </Link>
-            <button type="button" className="flex items-center gap-2">
+            <button
+              type="button"
+              className="flex items-center gap-2"
+              onClick={() => toggleSideCart()}
+            >
               <div className="relative">
                 <BsHandbag size={32} />
-                <span className="absolute top-0 flex items-center justify-center w-4 h-4 text-xs bg-red-500 rounded-full -left-2">
+                <span className="absolute top-0 flex items-center justify-center w-4 h-4 text-xs bg-red-500 rounded-full ltr:-left-2 rtl:-right-2">
                   {totalItems}
                 </span>
               </div>
               <div>
                 <h3 className=" text-neutral-400">Your Cart</h3>
-                <h2>${totalPrice.toFixed(2)}</h2>
+                <FormatNumber
+                  value={totalPrice}
+                  withCurrency={false}
+                  styles={{ root: 'text-sm text-white' }}
+                />
               </div>
             </button>
           </div>
         </div>
       </header>
+      <ModalView opened={openSideCart} onClose={() => toggleSideCart()}>
+        modal
+      </ModalView>
     </>
   );
 }

@@ -1,35 +1,34 @@
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { FiPhoneCall } from 'react-icons/fi';
-// import 'flag-icon-css/css/flag-icon.min.css';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
+import EG from '@/assets/flags/EG';
+import GB from '@/assets/flags/US';
 
 export default function Topbar() {
   const { t } = useTranslation();
   return (
     <nav className="py-2 text-white border-b bg-primary bg-primary-0 border-neutral-700">
       <div className="container grid items-center grid-cols-2 lg:grid-cols-3">
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
           <button
             type="button"
-            className={`text-xs capitalize ${
+            className={`flex text-xs capitalize items-center gap-2 ${
               i18next.language === 'ar' && 'opacity-50 cursor-default'
             }`}
             onClick={() => i18next.changeLanguage('ar')}
           >
-            عربي <span className="m-1 rounded-full flag-icon flag-icon-eg" />
+            عربي <EG width={15} style={{ marginTop: 4 }} />
           </button>
-          <span className="items-center hidden mx-2 text-gray-200 sm:flex">
-            |
-          </span>
+          <span className="items-center hidden text-gray-200 sm:flex">|</span>
           <button
             type="button"
-            className={`text-xs capitalize ${
+            className={`text-xs capitalize flex items-center gap-2 ${
               i18next.language === 'en' && 'opacity-50 cursor-default'
             }`}
             onClick={() => i18next.changeLanguage('en')}
           >
-            english <span className="m-1 rounded-full flag-icon flag-icon-gb" />
+            english <GB width={15} />
           </button>
         </div>
         <div className="hidden lg:block justify-self-center">

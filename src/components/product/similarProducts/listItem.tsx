@@ -1,11 +1,14 @@
 import { AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
+import { useAddToCart } from '@/apis/cart';
 
 type TListItem = {
   _id: string;
   name: string;
   images: string[];
+  colors: { _id: string; name: string }[];
+  sizes: string[];
   quantity: number;
   price: number;
 };
@@ -14,9 +17,17 @@ export default function ListItem({
   _id,
   name,
   images,
+  colors,
+  sizes,
   quantity,
   price,
 }: TListItem) {
+  const { mutate: addToCart, isLoading } = useAddToCart({
+    amount: 1,
+    color: colors[0]._id,
+    productId: _id,
+    size: sizes[0],
+  });
   return (
     <div className="group grid grid-cols-[2fr_4fr]  gap-4 p-4  border border-gray-300 rounded-md">
       <div className="overflow-hidden rounded-md">
@@ -58,6 +69,7 @@ export default function ListItem({
           <button
             type="button"
             className="flex-1 py-3 text-sm font-semibold text-white bg-red-500 rounded-md"
+            onClick={() => addToCart()}
           >
             Add to cart
           </button>

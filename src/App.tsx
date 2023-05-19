@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AppLayout from './layout';
 import HomePage from './pages/Home';
 import LoginPage from './pages/Login';
@@ -13,7 +14,9 @@ import RequireAuth from './routes/requireAuth';
 import PersistLogin from './routes/persistLogin';
 
 export default function App() {
+  const { i18n } = useTranslation();
   console.log('app run');
+  document.body.dir = i18n.dir();
   return (
     <BrowserRouter>
       <Routes>

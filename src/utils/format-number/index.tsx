@@ -1,6 +1,14 @@
 import i18next from 'i18next';
 
-export default function FormatNumber({ value }: { value: number }) {
+export default function FormatNumber({
+  value,
+  withCurrency = true,
+  styles,
+}: {
+  value: number;
+  withCurrency?: boolean;
+  styles?: { root?: string; currency?: string };
+}) {
   const format = new Intl.NumberFormat(i18next.language, {
     style: 'currency',
     currency: 'EGP',
@@ -16,8 +24,15 @@ export default function FormatNumber({ value }: { value: number }) {
     .reduce((p, el) => (p += el.value), '');
 
   return (
-    <span className="flex items-start gap-1 text-xl font-semibold text-neutral-900">
-      <span className="text-xs font-light">{currency}</span> {price}
+    <span
+      className={`flex items-start gap-1 font-semibold text-neutral-900 text- ${styles?.root}`}
+    >
+      {withCurrency && (
+        <span className={`text-xs font-light ${styles?.currency}`}>
+          {currency}
+        </span>
+      )}{' '}
+      {price}
     </span>
   );
 }

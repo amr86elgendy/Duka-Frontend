@@ -32,14 +32,14 @@ export default function CartItem({
   selectedSize,
   totalProductPrice,
 }: TCartItemProp) {
-  // console.log({
-  //   _id,
-  //   product,
-  //   amount,
-  //   selectedColor,
-  //   selectedSize,
-  //   totalProductPrice,
-  // });
+  console.log({
+    _id,
+    product,
+    amount,
+    selectedColor,
+    selectedSize,
+    totalProductPrice,
+  });
 
   const { mutate: increaseByOne, isLoading: loadIncrease } =
     useIncreaseItemByOne(_id);
@@ -68,7 +68,7 @@ export default function CartItem({
           color :{' '}
           <span
             className="inline-block w-4 h-4 rounded-sm"
-            style={{ backgroundColor: selectedColor.name }}
+            style={{ backgroundColor: selectedColor?.name }}
           />
         </p>
         <p className="flex items-center gap-4 text-gray-500">

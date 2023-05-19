@@ -31,13 +31,13 @@ export default function ProductItem({
   return (
     <div className="relative flex flex-col p-4 border-r group">
       <LoadingOverlay visible={isLoading} />
-      <div className="relative flex flex-col mb-2 overflow-hidden ">
+      <div className="relative flex flex-col mb-2 overflow-hidden">
         <div className="absolute z-10 px-3 text-sm text-white bg-green-600 rounded-md">
           <p>-7%</p>
         </div>
         <Link to={`/products/${_id}`} className="mx-auto ">
           <img
-            className=" cursor-pointer object-contain group-hover:scale-110 transition-all duration-300 w-[230px] h-[230px]"
+            className="object-contain transition-all duration-300 cursor-pointer group-hover:scale-110 w-[230] h-[230]"
             src={images[0]}
             alt="product-img"
           />
@@ -48,7 +48,7 @@ export default function ProductItem({
             <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
               <AiOutlineHeart size={24} />
             </div>
-            <span className="bg-gray-500 text-white absolute top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover:visible group-hover/wishlist:opacity-100 transition pointer-events-none">
+            <span className="absolute invisible px-2 py-1 text-sm text-white transition -translate-y-full bg-gray-500 rounded-md opacity-0 pointer-events-none top-8 whitespace-nowrap group-hover:visible group-hover/wishlist:opacity-100 right-12">
               WishList
             </span>
           </div>
@@ -57,7 +57,7 @@ export default function ProductItem({
             <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
               <BiLayer size={24} />
             </div>
-            <span className="bg-gray-500 text-white absolute top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover:visible group-hover/compare:opacity-100 transition pointer-events-none">
+            <span className="absolute invisible px-2 py-1 text-sm text-white transition -translate-y-full bg-gray-500 rounded-md opacity-0 pointer-events-none top-8 whitespace-nowrap group-hover:visible group-hover/compare:opacity-100 right-12">
               Compare
             </span>
           </div>
