@@ -1,6 +1,11 @@
 import { BiTrash } from 'react-icons/bi';
-import { useIncreaseItemByOne, useReduceItemByOne } from '@/apis/cart';
+import {
+  useDeleteCartItem,
+  useIncreaseItemByOne,
+  useReduceItemByOne,
+} from '@/apis/cart';
 import FormatNumber from '@/utils/format-number';
+import LoadingOverlay from '@/utils/overlay';
 
 type TCartItemProp = {
   _id: string;
@@ -40,23 +45,22 @@ export default function CartItem({
     useIncreaseItemByOne(_id);
   const { mutate: reduceByOne, isLoading: loadReduce } =
     useReduceItemByOne(_id);
+  const { mutate: deleteItem, isLoading: loadDelete } = useDeleteCartItem(_id);
 
   return (
-    <article className="relative flex gap-2 p-8 rounded-md">
-      <div
-        className={`absolute inset-0 z-10 bg-white opacity-50 ${
-          loadIncrease || loadReduce ? 'block' : 'hidden'
-        }`}
-      />
+    <article className="relative flex gap-8 p-8 rounded-md">
+      <LoadingOverlay visible={loadIncrease || loadReduce || loadDelete} />
       <div className="flex items-center w-36">
         <img src={product.images[0]} alt="" className="object-cover" />
       </div>
       <div className="flex-grow">
         <div className="flex items-start justify-between">
           <h1 className="text-lg font-semibold text-gray-800">
-            {product.name}
+            {product.name.length > 50
+              ? `${product.name.substring(0, 50)} ...`
+              : product.name}
           </h1>
-          <button type="button">
+          <button type="button" onClick={() => deleteItem()}>
             <BiTrash size={24} color="red" />
           </button>
         </div>

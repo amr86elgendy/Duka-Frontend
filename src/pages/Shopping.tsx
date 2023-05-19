@@ -4,7 +4,7 @@ import ShoppingItem from '../components/shopping/shoppingItem';
 import { useGetProducts } from '../apis/shopping';
 import FiltersComponent from '../components/shopping/filtersComponent';
 import SelectedFiltersComponent from '@/components/shopping/selectedFilters';
-import ProductSkeleton from '@/components/productCard/Skeleton';
+import ProductSkeleton from '@/components/home/productCard/Skeleton';
 import Error from './Error';
 import { TFilterState, useFilterContext } from '@/context/filter';
 
@@ -35,7 +35,7 @@ export default function ShoppingPage() {
     isFetchingNextPage,
   } = useGetProducts({ filters, queries: { limit: 12 } });
   const products = data?.pages.flatMap((page) => page.products) || [];
-  // console.log('products components run');
+
   if (error) return <Error />;
   return (
     <section className="container">
@@ -57,7 +57,7 @@ export default function ShoppingPage() {
           ) : products.length === 0 ? (
             <h1>no items matches your filter</h1>
           ) : (
-            products.map((p) => <ShoppingItem {...p} key={p._id} />)
+            products.map((p) => <ShoppingItem key={p._id} {...p} />)
           )}
         </div>
         {hasNextPage && (

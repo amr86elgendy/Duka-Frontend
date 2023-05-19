@@ -13,7 +13,7 @@ type TProduct<T> = {
   brand: T;
   category: T;
   subCategory: T;
-  colors: string[];
+  colors: T[];
   createdAt: string;
   description: string;
   featured: boolean;
@@ -92,6 +92,7 @@ export const useGetProducts = (props: TGetProductsQueryKey) => {
       }
       return undefined;
     },
+    keepPreviousData: true,
   });
 };
 // ######################### Get Single Product #########################

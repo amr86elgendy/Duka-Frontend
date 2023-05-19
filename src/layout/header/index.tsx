@@ -8,28 +8,31 @@ import { useCartContext } from '@/context/cart';
 
 export default function Header() {
   const { isAuthenticated } = useAuthContext();
-  const { cart: { totalPrice, totalItems } } = useCartContext();
-  
-  return (
-    <header className="bg-[#181F2B] py-6">
-      <div className="container flex items-center justify-between text-white">
-        <Link to="/">
-          <img src="/images/logo.svg" alt="Dujamarket logo" width={210} />
-        </Link>
+  const {
+    cart: { totalPrice, totalItems },
+  } = useCartContext();
 
-        {/* Search bar */}
-        <form className="w-2/5 ">
-          <div className="flex">
-            <button
-              id="dropdown-button"
-              data-dropdown-toggle="dropdown"
-              className="z-10 inline-flex items-center flex-shrink-0 gap-1 p-4 text-sm font-medium text-center text-gray-900 capitalize bg-gray-100 border border-gray-300 rounded-l-sm hover:bg-gray-200 focus:outline-none hover:text-red-500"
-              type="button"
-            >
-              All categories
-              <BiChevronDown />
-            </button>
-            {/* <div
+  return (
+    <>
+      <header className="bg-[#181F2B] py-6">
+        <div className="container flex items-center justify-between text-white">
+          <Link to="/">
+            <img src="/images/logo.svg" alt="Dujamarket logo" width={210} />
+          </Link>
+
+          {/* Search bar */}
+          <form className="w-2/5 ">
+            <div className="flex">
+              <button
+                id="dropdown-button"
+                data-dropdown-toggle="dropdown"
+                className="z-10 inline-flex items-center flex-shrink-0 gap-1 p-4 text-sm font-medium text-center text-gray-900 capitalize bg-gray-100 border border-gray-300 rounded-l-sm hover:bg-gray-200 focus:outline-none hover:text-red-500"
+                type="button"
+              >
+                All categories
+                <BiChevronDown />
+              </button>
+              {/* <div
             id="dropdown"
             className="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700"
             data-popper-reference-hidden=""
@@ -57,52 +60,55 @@ export default function Header() {
             </ul>
           </div> */}
 
-            <div className="relative w-full">
-              <input
-                type="search"
-                id="search-dropdown"
-                className="z-20 block w-full p-4 text-sm text-gray-900 border border-l-2 border-gray-300 rounded-r-lg bg-gray-50 border-l-gray-50 focus:outline-none"
-                placeholder="Search"
-                required
-              />
-              <button
-                type="submit"
-                className="absolute top-0 right-0 p-4 text-sm bg-red-500 border border-red-500 rounded-r-sm"
-              >
-                <FiSearch size={20} />
-              </button>
+              <div className="relative w-full">
+                <input
+                  type="search"
+                  id="search-dropdown"
+                  className="z-20 block w-full p-4 text-sm text-gray-900 border border-l-2 border-gray-300 rounded-r-lg bg-gray-50 border-l-gray-50 focus:outline-none"
+                  placeholder="Search"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="absolute top-0 right-0 p-4 text-sm bg-red-500 border border-red-500 rounded-r-sm"
+                >
+                  <FiSearch size={20} />
+                </button>
+              </div>
             </div>
-          </div>
-        </form>
-        <div className="flex gap-8 text-sm">
-          {isAuthenticated ? (
-            <AccountMenu />
-          ) : (
-            <Link to="login">
-              <h3 className="text-neutral-400">
-                Hello, <span>sign in</span>
-              </h3>
-              <h2 className="capitalize">account & lists</h2>
+          </form>
+          <div className="flex gap-8 text-sm">
+            {isAuthenticated ? (
+              <AccountMenu />
+            ) : (
+              <Link to="login">
+                <h3 className="text-neutral-400">
+                  Hello, <span>sign in</span>
+                </h3>
+                <h2 className="capitalize">account & lists</h2>
+              </Link>
+            )}
+            <Link to="wishlist" className="flex items-center gap-2">
+              <div>
+                <h3 className=" text-neutral-400">Favorite</h3>
+                <h2>My Wishlist</h2>
+              </div>
             </Link>
-          )}
-          <Link to="wishlist" className="flex items-center gap-2">
-            <div>
-              <h3 className=" text-neutral-400">Favorite</h3>
-              <h2>My Wishlist</h2>
-            </div>
-          </Link>
-          <Link to="cart" className="flex items-center gap-2">
-            <div className="relative">
-              <BsHandbag size={32} />
-              <span className='absolute top-0 flex items-center justify-center w-4 h-4 bg-red-500 rounded-full -left-2'>{totalItems}</span>
-            </div>
-            <div>
-              <h3 className=" text-neutral-400">Your Cart</h3>
-              <h2>${totalPrice.toFixed(2)}</h2>
-            </div>
-          </Link>
+            <button type="button" className="flex items-center gap-2">
+              <div className="relative">
+                <BsHandbag size={32} />
+                <span className="absolute top-0 flex items-center justify-center w-4 h-4 text-xs bg-red-500 rounded-full -left-2">
+                  {totalItems}
+                </span>
+              </div>
+              <div>
+                <h3 className=" text-neutral-400">Your Cart</h3>
+                <h2>${totalPrice.toFixed(2)}</h2>
+              </div>
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

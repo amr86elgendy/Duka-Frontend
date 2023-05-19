@@ -1,13 +1,15 @@
-import ProductCard from '@/components/productCard';
+import ProductCard from '@/components/home/productCard';
 import { useGetProducts } from '@/apis/shopping';
-import Skeleton from '@/components/productCard/Skeleton';
+import Skeleton from '@/components/home/productCard/Skeleton';
 
 export default function NewArrival() {
   const queries = {
     sort: '-createdAt',
     limit: 5,
   };
-  const { data, isLoading, error } = useGetProducts({ queries });
+  const productsQuery = useGetProducts({ queries });
+  const products =
+    productsQuery.data?.pages.flatMap((page) => page.products) || [];
 
   return (
     <div className="mb-12 border-4 bg-red-500 overflow-hidden border-red-500 rounded-md text-white grid grid-cols-[1fr_minmax(1130px,_2fr)]">
@@ -25,19 +27,9 @@ export default function NewArrival() {
         </button>
       </div>
       <div className="grid grid-cols-5 overflow-hidden bg-gray-200 rounded-lg">
-        {isLoading
+        {productsQuery.isLoading
           ? [...Array(5).keys()].map((el) => <Skeleton key={el} />)
-          : data?.pages
-              .flatMap((page) => page.products)
-              .map((p) => (
-                <ProductCard
-                  key={p._id}
-                  title={p.name}
-                  src={p.images[0]}
-                  price={p.price}
-                  _id={p._id}
-                />
-              ))}
+          : products.map((p) => <ProductCard {...p} key={p._id} />)}
       </div>
     </div>
   );

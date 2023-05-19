@@ -28,7 +28,7 @@ export function useGetCart() {
   });
 }
 
-// ######################### Increase Item By One #########################
+// ######################### Add To Cart #########################
 export function useAddToCart(cartData: {
   amount: number;
   color: string;
@@ -81,5 +81,39 @@ export function useReduceItemByOne(itemId: string) {
       return data;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+  });
+}
+
+// ######################### Reduce Item By One #########################
+export function useDeleteCartItem(itemId: string) {
+  const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<{ cart: TCart }> => {
+      const { data } = await axiosPrivate({
+        url: `/carts/${itemId}`,
+        method: 'DELETE',
+      });
+      return data;
+    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['get-cart'] }),
+  });
+}
+
+// ######################### Reduce Item By One #########################
+export function useDeleteCart() {
+  const axiosPrivate = useAxiosPrivate();
+  const { dispatch } = useCartContext();
+
+  return useMutation({
+    mutationFn: async (): Promise<{ cart: TCart }> => {
+      const { data } = await axiosPrivate({
+        url: `/carts`,
+        method: 'DELETE',
+      });
+      return data;
+    },
+    onSuccess: () => dispatch('REMOVE_CART'),
   });
 }

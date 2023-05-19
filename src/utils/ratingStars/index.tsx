@@ -27,11 +27,11 @@ export default function RatingStars({
     <div className="flex text-yellow-500 ">
       {starArr.map((key) =>
         key === 1 ? (
-          <IoMdStar size={22} />
+          <IoMdStar key={key} size={22} />
         ) : key === 0 ? (
-          <IoMdStarOutline size={22} />
+          <IoMdStarOutline key={key} size={22} />
         ) : (
-          <IoMdStarHalf size={22} />
+          <IoMdStarHalf key={key} size={22} />
         )
       )}
     </div>

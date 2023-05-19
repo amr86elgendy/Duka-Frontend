@@ -2,17 +2,36 @@ import { AiOutlineEye, AiOutlineHeart, AiOutlineStar } from 'react-icons/ai';
 import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
+import { useAddToCart } from '@/apis/cart';
+import LoadingOverlay from '@/utils/overlay';
 
-type TCardItem = {
-  title: string;
-  src: string;
+type TProductCard = {
+  name: string;
+  images: string[];
   price: number;
+  colors: { _id: string; name: string }[];
+  sizes: string[];
   _id: string;
 };
 
-export default function CardItem({ title, src, price, _id }: TCardItem) {
+export default function ProductCard({
+  name,
+  images,
+  price,
+  colors,
+  sizes,
+  _id,
+}: TProductCard) {
+  const { mutate: addToCart, isLoading } = useAddToCart({
+    amount: 1,
+    color: colors[0]._id,
+    productId: _id,
+    size: sizes[0],
+  });
+
   return (
-    <div className="group relative bg-white  flex flex-col p-4  w-[225px]">
+    <div className="relative flex flex-col w-56 p-4 bg-white group">
+      <LoadingOverlay visible={isLoading} />
       <div className="relative overflow-hidden w-[177px] h-[177px] mb-2">
         <div className="absolute z-10 px-3 text-sm text-white bg-green-600 rounded-md">
           <p>-7%</p>
@@ -20,7 +39,7 @@ export default function CardItem({ title, src, price, _id }: TCardItem) {
         <Link to={`/products/${_id}`}>
           <img
             className="object-contain w-full h-full transition-all duration-300 cursor-pointer group-hover:scale-110"
-            src={src}
+            src={images[0]}
             alt="product-img"
           />
         </Link>
@@ -55,9 +74,9 @@ export default function CardItem({ title, src, price, _id }: TCardItem) {
       </div>
 
       {/* ---------------------------- */}
-      <div className="flex flex-col gap-2 mb-2">
+      <div className="flex flex-col gap-2 mb-4">
         <h1 className="font-semibold text-blue-700 capitalize line-clamp-2">
-          {title}
+          {name}
         </h1>
         <div className="flex items-center gap-2">
           <div className="flex text-yellow-500 ">
@@ -73,13 +92,13 @@ export default function CardItem({ title, src, price, _id }: TCardItem) {
             <p>01 review</p>
           </div>
         </div>
+        <FormatNumber value={price} />
       </div>
-
-      <FormatNumber value={price} />
 
       <button
         type="button"
         className="py-3 mt-auto text-sm font-semibold text-white capitalize bg-red-500 rounded-md"
+        onClick={() => addToCart()}
       >
         Add To Cart
       </button>

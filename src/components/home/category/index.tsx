@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
-import ProductCard from '@/components/productCard';
+import ProductCard from '@/components/home/productCard';
 import CategoryList from './CategoryList';
 import CategoryProduct from './FeaturedProduct';
 import { useGetProducts } from '@/apis/shopping';
-import Skeleton from '@/components/productCard/Skeleton';
+import Skeleton from '@/components/home/productCard/Skeleton';
 
 export default function Category() {
   const queries = {
@@ -49,13 +49,7 @@ export default function Category() {
           {isLoading
             ? [...Array(3).keys()].map((el) => <Skeleton key={el} />)
             : restProducts.map((p) => (
-                <ProductCard
-                  key={p._id}
-                  title={p.name}
-                  src={p.images[0]}
-                  price={p.price}
-                  _id={p._id}
-                />
+                <ProductCard key={p._id} src={p.images[0]} {...p} />
               ))}
         </div>
 

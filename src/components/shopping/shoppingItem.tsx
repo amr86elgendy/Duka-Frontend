@@ -3,11 +3,12 @@ import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
 import { useAddToCart } from '@/apis/cart';
+import LoadingOverlay from '@/utils/overlay';
 
 type TShoppingItem = {
   name: string;
   price: number;
-  colors: string[];
+  colors: { _id: string; name: string }[];
   images: string[];
   sizes: string[];
   _id: string;
@@ -23,17 +24,13 @@ export default function ProductItem({
 }: TShoppingItem) {
   const { mutate: addToCart, isLoading } = useAddToCart({
     amount: 1,
-    color: colors[0],
+    color: colors[0]._id,
     productId: _id,
     size: sizes[0],
   });
   return (
     <div className="relative flex flex-col p-4 border-r group">
-      <div
-        className={`absolute inset-0 z-10 bg-white opacity-50 ${
-          isLoading ? 'block' : 'hidden'
-        }`}
-      />
+      <LoadingOverlay visible={isLoading} />
       <div className="relative flex flex-col mb-2 overflow-hidden ">
         <div className="absolute z-10 px-3 text-sm text-white bg-green-600 rounded-md">
           <p>-7%</p>
