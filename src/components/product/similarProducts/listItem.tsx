@@ -2,6 +2,7 @@ import { AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
 import { useAddToCart } from '@/apis/cart';
+import LoadingOverlay from '@/utils/overlay';
 
 type TListItem = {
   _id: string;
@@ -29,7 +30,8 @@ export default function ListItem({
     size: sizes[0],
   });
   return (
-    <div className="group grid grid-cols-[2fr_4fr]  gap-4 p-4  border border-gray-300 rounded-md">
+    <div className="group relative grid grid-cols-[2fr_4fr]  gap-4 p-4  border border-gray-300 rounded-md">
+      <LoadingOverlay visible={isLoading} />
       <div className="overflow-hidden rounded-md">
         <Link to={`/products/${_id}`}>
           <img

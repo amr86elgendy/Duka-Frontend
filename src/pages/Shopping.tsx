@@ -41,8 +41,8 @@ export default function ShoppingPage() {
     <section className="container">
       <div className="px-4 py-6 bg-white rounded-md">
         <h1 className="mb-12 text-3xl font-semibold">All Products</h1>
-        <div className="pb-4 border-b border-gray-300 ">
-          <div className="flex items-center justify-between mb-2">
+        <div className="flex flex-col gap-4 pb-4 border-b border-gray-300">
+          <div className="flex items-center justify-between">
             <FiltersComponent />
             {data && (
               <p className="text-gray-400 ">{data.pages[0].totalCount} Items</p>

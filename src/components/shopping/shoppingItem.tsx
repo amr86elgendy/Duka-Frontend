@@ -32,12 +32,12 @@ export default function ProductItem({
     <div className="relative flex flex-col p-4 border-r group">
       <LoadingOverlay visible={isLoading} />
       <div className="relative flex flex-col mb-2 overflow-hidden">
-        <div className="absolute z-10 px-3 text-sm text-white bg-green-600 rounded-md">
+        <div className="absolute z-[5] px-3 text-sm text-white bg-green-600 rounded-md">
           <p>-7%</p>
         </div>
         <Link to={`/products/${_id}`} className="mx-auto ">
           <img
-            className="object-contain transition-all duration-300 cursor-pointer group-hover:scale-110 w-[230] h-[230]"
+            className="object-contain transition-all duration-300 cursor-pointer group-hover:scale-110 w-[230px] h-[230px]"
             src={images[0]}
             alt="product-img"
           />

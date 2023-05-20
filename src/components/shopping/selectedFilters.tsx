@@ -8,7 +8,6 @@ export default React.memo(function SelectedFilters({
   filters: [keyof TFilterState, string][];
 }) {
   const { dispatch } = useFilterContext();
-  console.log('selected filters run');
   return (
     <div className="flex flex-wrap gap-2">
       {filters?.map((filter) => (

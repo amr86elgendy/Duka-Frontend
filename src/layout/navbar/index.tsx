@@ -4,7 +4,7 @@ import { BiChevronDown } from 'react-icons/bi';
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-40 py-3 bg-primary-1">
+    <nav className="sticky top-0 z-20 py-3 bg-primary-1">
       <div className="container text-white">
         <ul className="flex gap-10">
           <li className="flex items-center gap-2 pr-10 border-r border-gray-500 cursor-pointer hover:text-red-500">

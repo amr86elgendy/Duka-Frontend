@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { BsHandbag } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
 import { FiSearch } from 'react-icons/fi';
@@ -7,10 +7,11 @@ import AccountMenu from './AccountMenu';
 import { useAuthContext } from '@/context/auth';
 import { useCartContext } from '@/context/cart';
 import FormatNumber from '@/utils/format-number';
-import ModalView from '@/utils/modal';
 import useToggle from '@/hooks/useToggle';
+import DrawerView from '@/utils/drawer';
 
 export default function Header() {
+  const { t } = useTranslation(['header']);
   const { isAuthenticated } = useAuthContext();
   const {
     cart: { totalPrice, totalItems },
@@ -34,7 +35,7 @@ export default function Header() {
                 className="z-10 inline-flex items-center flex-shrink-0 gap-1 p-4 text-sm font-medium text-center text-gray-900 capitalize bg-gray-100 border border-gray-300 rounded-l-sm hover:bg-gray-200 focus:outline-none hover:text-red-500"
                 type="button"
               >
-                All categories
+                {t('all-categories')}
                 <BiChevronDown />
               </button>
               {/* <div
@@ -88,9 +89,9 @@ export default function Header() {
             ) : (
               <Link to="login">
                 <h3 className="text-neutral-400">
-                  Hello, <span>sign in</span>
+                  {t('hello')}, <span>{t('sign-in')}</span>
                 </h3>
-                <h2 className="capitalize">account & lists</h2>
+                <h2 className="capitalize">{t('account-lists')}</h2>
               </Link>
             )}
             <Link to="wishlist" className="flex items-center gap-2">
@@ -111,7 +112,7 @@ export default function Header() {
                 </span>
               </div>
               <div>
-                <h3 className=" text-neutral-400">Your Cart</h3>
+                <h3 className=" text-neutral-400">{t('cart')}</h3>
                 <FormatNumber
                   value={totalPrice}
                   withCurrency={false}
@@ -122,9 +123,9 @@ export default function Header() {
           </div>
         </div>
       </header>
-      <ModalView opened={openSideCart} onClose={() => toggleSideCart()}>
-        modal
-      </ModalView>
+      <DrawerView opened={openSideCart} onClose={() => toggleSideCart()}>
+        Drawer
+      </DrawerView>
     </>
   );
 }
