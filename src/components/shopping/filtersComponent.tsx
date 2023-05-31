@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useGetBrands, useGetCategories } from '@/apis/public';
 import FilterMenu from './filterMenu';
 
 export default React.memo(function Filters() {
+  const { t } = useTranslation('filter');
   const { data: categories, isLoading: loadCategories } = useGetCategories();
   const { data: brands, isLoading: loadBrands } = useGetBrands();
 
@@ -10,7 +12,7 @@ export default React.memo(function Filters() {
   return (
     <div className="flex gap-2">
       <FilterMenu
-        name="sort"
+        name={t('sort')}
         multiple={false}
         options={[
           { _id: '-averageRating', name: 'customer rating' },
@@ -21,8 +23,8 @@ export default React.memo(function Filters() {
           { _id: '-sold', name: 'top-seller' },
         ]}
       />
-      <FilterMenu name="category" multiple options={categories} />
-      <FilterMenu name="brand" multiple options={brands} />
+      <FilterMenu name={t('category')} multiple options={categories} />
+      <FilterMenu name={t('brand')} multiple options={brands} />
     </div>
   );
 });

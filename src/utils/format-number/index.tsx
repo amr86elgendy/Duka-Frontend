@@ -25,7 +25,7 @@ export default function FormatNumber({
 
   return (
     <span
-      className={`flex items-start gap-1 font-semibold text-neutral-900 text- ${styles?.root}`}
+      className={`flex items-start gap-1 font-semibold text-neutral-900 ${styles?.root}`}
     >
       {withCurrency && (
         <span className={`text-xs font-light ${styles?.currency}`}>

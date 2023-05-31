@@ -22,13 +22,13 @@ export default function ReviewComment({
   }).format(date);
 
   return (
-    <div className="flex items-start gap-2 pb-6 border-b ">
-      <div className="rounded-full h-14 bg-slate-200 min-w-max">
-        <img src={avatar} className="object-cover w-14" alt="" />
+    <div className="flex items-start gap-2 border-b pb-6 ">
+      <div className="h-14 min-w-max rounded-full bg-slate-200">
+        <img src={avatar} className="w-14 object-cover" alt="" />
       </div>
       <div>
         <h1 className="text-gray-800">{user.name}</h1>
-        <div className="flex mb-1 text-yellow-500">
+        <div className="mb-1 flex text-yellow-500">
           {[...Array(5).keys()].map((el) => (
             <AiFillStar
               key={el}
@@ -37,7 +37,7 @@ export default function ReviewComment({
           ))}
         </div>
         <p className="mb-3 text-gray-400">{time}</p>
-        <p className="flex-wrap mb-6 text-lg">{comment}</p>
+        <p className="mb-6 flex-wrap text-lg">{comment}</p>
         <div className="flex items-center gap-2 text-gray-400">
           <BiLike size={24} />
           <p>124</p>

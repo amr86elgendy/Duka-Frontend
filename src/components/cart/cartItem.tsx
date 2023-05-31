@@ -48,9 +48,9 @@ export default function CartItem({
   const { mutate: deleteItem, isLoading: loadDelete } = useDeleteCartItem(_id);
 
   return (
-    <article className="relative flex gap-8 p-8 rounded-md">
+    <article className="relative flex gap-8 rounded-md p-8">
       <LoadingOverlay visible={loadIncrease || loadReduce || loadDelete} />
-      <div className="flex items-center w-36">
+      <div className="flex w-36 items-center">
         <img src={product.images[0]} alt="" className="object-cover" />
       </div>
       <div className="flex-grow">
@@ -67,18 +67,18 @@ export default function CartItem({
         <p className="flex items-center gap-4 text-gray-500">
           color :{' '}
           <span
-            className="inline-block w-4 h-4 rounded-sm"
+            className="inline-block h-4 w-4 rounded-sm"
             style={{ backgroundColor: selectedColor?.name }}
           />
         </p>
         <p className="flex items-center gap-4 text-gray-500">
           size : <span className="text-lg font-semibold">{selectedSize}</span>
         </p>
-        <div className="flex items-center justify-between mt-4">
+        <div className="mt-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
               type="button"
-              className="flex items-center justify-center w-10 border rounded-md cursor-pointer hover:bg-gray-300 aspect-square"
+              className="flex aspect-square w-10 cursor-pointer items-center justify-center rounded-md border hover:bg-gray-300"
               onClick={() => reduceByOne()}
             >
               -
@@ -86,7 +86,7 @@ export default function CartItem({
             <h3>{amount}</h3>
             <button
               type="button"
-              className="flex items-center justify-center w-10 border rounded-md cursor-pointer hover:bg-gray-300 aspect-square"
+              className="flex aspect-square w-10 cursor-pointer items-center justify-center rounded-md border hover:bg-gray-300"
               onClick={() => increaseByOne()}
             >
               +

@@ -112,6 +112,7 @@ export const useGetSingleProduct = (productId: string) => {
     queryKey: ['get-single-product', productId],
     queryFn: () => getProduct(productId),
     select: (data) => data.product,
+    keepPreviousData: true,
   });
 };
 

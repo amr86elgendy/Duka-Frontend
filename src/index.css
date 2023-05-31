@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html[dir='ltr'] {
+    font-family: 'Poppins', 'Noto Kufi Arabic', sans-serif;
+  }
+  html[dir='rtl'] {
+    font-family: 'Noto Kufi Arabic', 'Poppins', sans-serif;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 0;
 }

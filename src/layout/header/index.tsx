@@ -9,6 +9,7 @@ import { useCartContext } from '@/context/cart';
 import FormatNumber from '@/utils/format-number';
 import useToggle from '@/hooks/useToggle';
 import DrawerView from '@/utils/drawer';
+import CartSide from '@/components/cart/CartSide';
 
 export default function Header() {
   const { t } = useTranslation(['header']);
@@ -27,12 +28,10 @@ export default function Header() {
           </Link>
 
           {/* Search bar */}
-          <form className="w-2/5 ">
+          <form className="w-2/5">
             <div className="flex">
               <button
-                id="dropdown-button"
-                data-dropdown-toggle="dropdown"
-                className="z-10 inline-flex items-center flex-shrink-0 gap-1 p-4 text-sm font-medium text-center text-gray-900 capitalize bg-gray-100 border border-gray-300 rounded-l-sm hover:bg-gray-200 focus:outline-none hover:text-red-500"
+                className="inline-flex flex-shrink-0 items-center gap-1 border border-gray-300 bg-gray-100 p-4 text-sm font-medium capitalize text-gray-900 hover:bg-gray-200 hover:text-red-500 focus:outline-none ltr:rounded-l-sm ltr:rounded-r-none rtl:rounded-l-none rtl:rounded-r-sm"
                 type="button"
               >
                 {t('all-categories')}
@@ -66,21 +65,18 @@ export default function Header() {
             </ul>
           </div> */}
 
-              <div className="relative w-full">
-                <input
-                  type="search"
-                  id="search-dropdown"
-                  className="z-20 block w-full p-4 text-sm text-gray-900 border border-l-2 border-gray-300 rounded-r-lg bg-gray-50 border-l-gray-50 focus:outline-none"
-                  placeholder="Search"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="absolute top-0 right-0 p-4 text-sm bg-red-500 border border-red-500 rounded-r-sm"
-                >
-                  <FiSearch size={20} />
-                </button>
-              </div>
+              <input
+                type="search"
+                className="flex-1 border border-gray-300 bg-gray-50 p-4 text-sm text-gray-900 focus:outline-none"
+                placeholder={t('search')!}
+                required
+              />
+              <button
+                type="submit"
+                className="border border-red-500 bg-red-500 p-4 text-sm ltr:rounded-r-sm rtl:rounded-l-sm"
+              >
+                <FiSearch size={20} />
+              </button>
             </div>
           </form>
           <div className="flex gap-8 text-sm">
@@ -107,7 +103,7 @@ export default function Header() {
             >
               <div className="relative">
                 <BsHandbag size={32} />
-                <span className="absolute top-0 flex items-center justify-center w-4 h-4 text-xs bg-red-500 rounded-full ltr:-left-2 rtl:-right-2">
+                <span className="absolute top-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs ltr:-left-2 rtl:-right-2">
                   {totalItems}
                 </span>
               </div>
@@ -124,7 +120,7 @@ export default function Header() {
         </div>
       </header>
       <DrawerView opened={openSideCart} onClose={() => toggleSideCart()}>
-        Drawer
+        <CartSide onClose={() => toggleSideCart()} />
       </DrawerView>
     </>
   );

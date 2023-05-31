@@ -8,44 +8,44 @@ import GB from '@/assets/flags/US';
 export default function Topbar() {
   const { t } = useTranslation();
   return (
-    <nav className="py-2 text-white border-b bg-primary bg-primary-0 border-neutral-700">
-      <div className="container grid items-center grid-cols-2 lg:grid-cols-3">
+    <nav className="bg-primary border-b border-neutral-700 bg-primary-0 py-2 text-white">
+      <div className="container grid grid-cols-2 items-center lg:grid-cols-3">
         <div className="flex items-center gap-2">
           <button
             type="button"
-            className={`flex text-xs capitalize items-center gap-2 ${
-              i18next.language === 'ar' && 'opacity-50 cursor-default'
+            className={`flex items-center gap-2 text-xs capitalize ${
+              i18next.language === 'ar' && 'cursor-default opacity-50'
             }`}
             onClick={() => i18next.changeLanguage('ar')}
           >
             عربي <EG width={15} style={{ marginTop: 4 }} />
           </button>
-          <span className="items-center hidden text-gray-200 sm:flex">|</span>
+          <span className="hidden items-center text-gray-200 sm:flex">|</span>
           <button
             type="button"
-            className={`text-xs capitalize flex items-center gap-2 ${
-              i18next.language === 'en' && 'opacity-50 cursor-default'
+            className={`flex items-center gap-2 text-xs capitalize ${
+              i18next.language === 'en' && 'cursor-default opacity-50'
             }`}
             onClick={() => i18next.changeLanguage('en')}
           >
             english <GB width={15} />
           </button>
         </div>
-        <div className="hidden lg:block justify-self-center">
+        <div className="hidden justify-self-center lg:block">
           {t('topbar-sale')}
         </div>
         <ul className="flex justify-self-end">
-          <li className="items-center hidden sm:flex sm:gap-1">
-            <FiPhoneCall className="ltr:mr-2 rtl:ml-2" />
+          <li className="hidden items-center sm:flex sm:gap-2">
+            <FiPhoneCall className="rtl:rotate-[270deg]" />
             0123456789
           </li>
-          <span className="items-center hidden mx-2 text-gray-200 sm:flex">
+          <span className="mx-2 hidden items-center text-gray-200 sm:flex">
             |
           </span>
           <a
             href="https://www.facebook.com"
             target="_blank"
-            className="flex items-center justify-center w-8 h-8 transition duration-300 rounded-full hover:bg-[#3b5a9a]"
+            className="flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:bg-[#3b5a9a]"
             rel="noreferrer"
           >
             <FaFacebookF />
@@ -53,7 +53,7 @@ export default function Topbar() {
           <a
             href="https://www.facebook.com"
             target="_blank"
-            className="flex items-center justify-center w-8 h-8 transition duration-300 rounded-full hover:bg-[#1aa9e1]"
+            className="flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:bg-[#1aa9e1]"
             rel="noreferrer"
           >
             <FaTwitter />
@@ -61,7 +61,7 @@ export default function Topbar() {
           <a
             href="https://www.facebook.com"
             target="_blank"
-            className="flex items-center justify-center w-8 h-8 transition duration-300 rounded-full hover:bg-[#f56040]"
+            className="flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:bg-[#f56040]"
             rel="noreferrer"
           >
             <FaInstagram />

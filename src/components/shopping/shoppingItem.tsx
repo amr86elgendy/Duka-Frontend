@@ -1,6 +1,7 @@
 import { AiOutlineStar, AiOutlineHeart } from 'react-icons/ai';
 import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
+import i18next from 'i18next';
 import FormatNumber from '@/utils/format-number';
 import { useAddToCart } from '@/apis/cart';
 import LoadingOverlay from '@/utils/overlay';
@@ -29,43 +30,43 @@ export default function ProductItem({
     size: sizes[0],
   });
   return (
-    <div className="relative flex flex-col p-4 border-r group">
+    <div className="group relative flex flex-col border-r p-4">
       <LoadingOverlay visible={isLoading} />
-      <div className="relative flex flex-col mb-2 overflow-hidden">
-        <div className="absolute z-[5] px-3 text-sm text-white bg-green-600 rounded-md">
+      <div className="relative mb-2 flex flex-col overflow-hidden">
+        <div className="absolute z-[5] rounded-md bg-green-600 px-3 text-sm text-white">
           <p>-7%</p>
         </div>
         <Link to={`/products/${_id}`} className="mx-auto ">
           <img
-            className="object-contain transition-all duration-300 cursor-pointer group-hover:scale-110 w-[230px] h-[230px]"
+            className="h-[230px] w-[230px] cursor-pointer object-contain transition-all duration-300 group-hover:scale-110"
             src={images[0]}
             alt="product-img"
           />
         </Link>
         {/* onHover Container */}
-        <div className="absolute top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 -right-10 group-hover:right-0">
-          <div className="relative group/wishlist">
-            <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
+        <div className="absolute -end-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:end-0">
+          <div className="group/wishlist relative">
+            <div className="cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-red-500 hover:text-white">
               <AiOutlineHeart size={24} />
             </div>
-            <span className="absolute invisible px-2 py-1 text-sm text-white transition -translate-y-full bg-gray-500 rounded-md opacity-0 pointer-events-none top-8 whitespace-nowrap group-hover:visible group-hover/wishlist:opacity-100 right-12">
+            <span className="pointer-events-none invisible absolute end-12 top-8 -translate-y-full whitespace-nowrap rounded-md bg-gray-500 px-2 py-1 text-sm text-white opacity-0 transition group-hover:visible group-hover/wishlist:opacity-100">
               WishList
             </span>
           </div>
 
-          <div className="relative group/compare">
-            <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
+          <div className="group/compare relative">
+            <div className="cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-red-500 hover:text-white">
               <BiLayer size={24} />
             </div>
-            <span className="absolute invisible px-2 py-1 text-sm text-white transition -translate-y-full bg-gray-500 rounded-md opacity-0 pointer-events-none top-8 whitespace-nowrap group-hover:visible group-hover/compare:opacity-100 right-12">
+            <span className="pointer-events-none invisible absolute end-12 top-8 -translate-y-full whitespace-nowrap rounded-md bg-gray-500 px-2 py-1 text-sm text-white opacity-0 transition group-hover:visible group-hover/compare:opacity-100">
               Compare
             </span>
           </div>
         </div>
       </div>
       {/* ---------- Title & Stars & Price ------------ */}
-      <div className="flex flex-col gap-2 mb-4">
-        <h1 className="font-semibold text-blue-700 capitalize line-clamp-2">
+      <div className="mb-4 flex flex-col gap-2">
+        <h1 className="line-clamp-2 font-semibold capitalize text-blue-700">
           {name}
         </h1>
         <div className="flex items-center gap-2">
@@ -85,17 +86,17 @@ export default function ProductItem({
         <FormatNumber value={price} />
       </div>
       {/* Buttons */}
-      <div className="flex flex-col gap-2 mt-auto">
+      <div className="mt-auto flex flex-col gap-2">
         <button
           type="button"
-          className="py-3 text-sm font-semibold text-white uppercase bg-red-500 rounded-md"
+          className="rounded-md bg-red-500 py-3 text-sm font-semibold uppercase text-white"
           onClick={() => addToCart()}
         >
           Add To Cart
         </button>
         <button
           type="button"
-          className="py-3 text-sm font-semibold text-gray-500 uppercase border-2 border-gray-300 rounded-md "
+          className="rounded-md border-2 border-gray-300 py-3 text-sm font-semibold uppercase text-gray-500 "
         >
           quick view
         </button>

@@ -39,9 +39,9 @@ export default function ShoppingPage() {
   if (error) return <Error />;
   return (
     <section className="container">
-      <div className="px-4 py-6 bg-white rounded-md">
+      <div className="rounded-md bg-white px-4 py-6">
         <h1 className="mb-12 text-3xl font-semibold">All Products</h1>
-        <div className="flex flex-col gap-4 pb-4 border-b border-gray-300">
+        <div className="flex flex-col gap-4 border-b border-gray-300 pb-4">
           <div className="flex items-center justify-between">
             <FiltersComponent />
             {data && (
@@ -51,7 +51,7 @@ export default function ShoppingPage() {
           <SelectedFiltersComponent filters={selectedFilters} />
         </div>
 
-        <div className="grid grid-cols-4 mb-8">
+        <div className="mb-8 grid grid-cols-4">
           {isLoading ? (
             [...Array(12).keys()].map((el) => <ProductSkeleton key={el} />)
           ) : products.length === 0 ? (
@@ -61,14 +61,14 @@ export default function ShoppingPage() {
           )}
         </div>
         {hasNextPage && (
-          <div className="flex justify-center w-full ">
+          <div className="flex w-full justify-center ">
             <button
               type="button"
               onClick={() => fetchNextPage()}
-              className="flex items-center justify-center h-10 px-4 py-2 text-white bg-gray-600 rounded-md w-28"
+              className="flex h-10 w-32 items-center justify-center rounded-md bg-gray-600 px-4 py-2 text-white"
             >
               {isFetchingNextPage ? (
-                <FaSpinner className=" animate-spin" />
+                <FaSpinner className=" animate-spin" size={22} />
               ) : (
                 'Load More'
               )}

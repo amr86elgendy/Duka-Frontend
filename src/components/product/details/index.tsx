@@ -39,11 +39,11 @@ export default function ProductDetail({
         {/* --------- IMG ----------- */}
         <div className="flex flex-col gap-4 ">
           <div
-            className="w-full overflow-hidden border border-gray-300 rounded-md cursor-zoom-in"
+            className="w-full cursor-zoom-in overflow-hidden rounded-md border border-gray-300"
             // onClick={() => dispatch(openModel())}
           >
             <img
-              className="w-[505px] h-[505px] object-contain"
+              className="h-[505px] w-[505px] object-contain"
               src={activeImg}
               alt=""
             />
@@ -53,7 +53,7 @@ export default function ProductDetail({
               <button
                 type="button"
                 key={image}
-                className={`border rounded-md cursor-pointer w-[70px] h-[70px] overflow-hidden ${
+                className={`h-[70px] w-[70px] cursor-pointer overflow-hidden rounded-md border ${
                   image === activeImg ? 'border-red-500' : 'border-gray-300'
                 }`}
                 onClick={() => {
@@ -61,7 +61,7 @@ export default function ProductDetail({
                 }}
               >
                 <img
-                  className="object-contain w-full h-full"
+                  className="h-full w-full object-contain"
                   src={image}
                   alt=""
                 />
@@ -73,14 +73,14 @@ export default function ProductDetail({
         {/* --------- Details ----------- */}
         <div className="flex flex-col">
           <h1 className="mb-2 text-2xl font-semibold text-blue-700">{name}</h1>
-          <div className="flex items-center gap-4 mb-4">
+          <div className="mb-4 flex items-center gap-4">
             <RatingStars averageRating={averageRating} />
-            <p className="px-4 text-sm text-gray-400 border-l border-r">
+            <p className="border-l border-r px-4 text-sm text-gray-400">
               {numReviews} review
             </p>
             <button
               type="button"
-              className="text-sm text-gray-400 capitalize hover:text-red-500"
+              className="text-sm capitalize text-gray-400 hover:text-red-500"
               onClick={() =>
                 window.scroll({
                   top: 860,
@@ -91,26 +91,26 @@ export default function ProductDetail({
               Add your review
             </button>
           </div>
-          <div className="flex items-center gap-2 pb-6 mb-6 border-b border-gray-200">
+          <div className="mb-6 flex items-center gap-2 border-b border-gray-200 pb-6">
             <FormatNumber value={price} />
             {/* <h3 className="text-xl text-gray-500 line-through">$599.99</h3> */}
           </div>
           <ul className="mb-6 text-gray-500">
             <li>{description}</li>
           </ul>
-          <div className="flex justify-between gap-4 pb-6 mb-6 border-b border-gray-200">
+          <div className="mb-6 flex justify-between gap-4 border-b border-gray-200 pb-6">
             <button
               type="button"
-              className="flex-grow py-3 font-semibold text-white bg-red-500 rounded-md"
+              className="flex-grow rounded-md bg-red-500 py-3 font-semibold text-white"
             >
               Add To Cart
             </button>
             <div className="flex items-center gap-4">
-              <div className=" hover:bg-gray-100 cursor-pointer h-full border border-gray-300 rounded-md flex justify-center items-center w-[48px]">
+              <div className=" flex h-full w-[48px] cursor-pointer items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">
                 -
               </div>
               <h3>1</h3>
-              <div className=" hover:bg-gray-100 cursor-pointer h-full border border-gray-300 rounded-md flex justify-center items-center w-[48px]">
+              <div className=" flex h-full w-[48px] cursor-pointer items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">
                 +
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function ProductDetail({
             <p>SKU:</p>
             <p className="text-gray-500">{_id}</p>
             <p>Category:</p>
-            <p className="text-gray-500 capitalize">{category.name}</p>
+            <p className="capitalize text-gray-500">{category.name}</p>
             <p>Tags:</p>
             <p className="text-gray-500">Digital, Headphone</p>
           </div>

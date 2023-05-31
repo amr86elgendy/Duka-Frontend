@@ -17,6 +17,7 @@ export default function App() {
   const { i18n } = useTranslation();
   console.log('app run');
   document.body.dir = i18n.dir();
+  document.documentElement.lang = i18n.language;
   return (
     <BrowserRouter>
       <Routes>

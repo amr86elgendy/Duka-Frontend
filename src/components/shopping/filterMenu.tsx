@@ -24,13 +24,13 @@ export default function FilterMenu({
     >
       <div className="h-full">
         <Listbox.Button
-          className={`hover:bg-gray-300 flex items-center gap-1 relative h-full cursor-pointer rounded-full bg-gray-100 py-2 px-6 text-left outline-none ${
+          className={`relative flex h-full cursor-pointer items-center gap-1 rounded-full bg-gray-100 px-6 py-2 text-left outline-none hover:bg-gray-300 ${
             filters[name] && filters[name].length > 0
               ? 'border border-gray-700'
               : 'border border-transparent'
           }`}
         >
-          <span className="block font-semibold capitalize truncate">
+          <span className="block truncate text-sm font-semibold capitalize">
             {name}
           </span>
           <BiChevronDown
@@ -47,7 +47,7 @@ export default function FilterMenu({
           leaveTo="opacity-0"
         >
           <Listbox.Options
-            className={`absolute z-10 grid py-2 mt-2 overflow-hidden border border-gray-300 rounded-md outline-none w-max bg-gray-50 sm:text-sm ${
+            className={`absolute z-10 mt-2 grid w-max overflow-hidden rounded-md border border-gray-300 bg-gray-50 py-2 outline-none sm:text-sm ${
               options.length <= 5
                 ? 'grid-cols-1'
                 : options.length <= 10
@@ -60,7 +60,7 @@ export default function FilterMenu({
                 key={option._id}
                 value={`${option._id},${option.name}`}
                 className={({ active }) =>
-                  `flex gap-2 relative cursor-pointer select-none py-2 px-6 ${
+                  `relative flex cursor-pointer select-none gap-2 px-6 py-2 ${
                     active ? 'bg-gray-100 text-red-500' : 'text-gray-900'
                   }`
                 }
@@ -68,10 +68,10 @@ export default function FilterMenu({
                 {({ selected }) => (
                   <div className="relative flex items-center gap-2">
                     <span
-                      className={`w-5 h-5 flex justify-center items-center rounded-full border-2 cursor-pointer ${
+                      className={`flex h-5 w-5 cursor-pointer items-center justify-center rounded-full border-2 ${
                         selected
-                          ? 'bg-red-500 border-none '
-                          : 'bg-gray-50 border-gray-300 '
+                          ? 'border-none bg-red-500 '
+                          : 'border-gray-300 bg-gray-50 '
                       }`}
                     >
                       {multiple ? (
@@ -79,11 +79,11 @@ export default function FilterMenu({
                           size={12}
                           className={`${
                             selected ? 'text-white' : 'text-gray-50'
-                          } absolute left-[4px] top-1 pointer-events-none`}
+                          } pointer-events-none absolute left-[4px] top-1`}
                         />
                       ) : (
                         <div
-                          className={`w-2 h-2  rounded-full pointer-events-none ${
+                          className={`pointer-events-none h-2  w-2 rounded-full ${
                             selected ? 'bg-white' : 'bg-gray-50'
                           }`}
                         />
