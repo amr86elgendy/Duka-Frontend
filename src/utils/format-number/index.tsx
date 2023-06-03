@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import i18next from 'i18next';
 
 export default function FormatNumber({
@@ -7,7 +8,7 @@ export default function FormatNumber({
 }: {
   value: number;
   withCurrency?: boolean;
-  styles?: { root?: string; currency?: string };
+  styles?: { root?: CSSProperties; currency?: CSSProperties };
 }) {
   const format = new Intl.NumberFormat(i18next.language, {
     style: 'currency',
@@ -25,10 +26,11 @@ export default function FormatNumber({
 
   return (
     <span
-      className={`flex items-start gap-1 font-semibold text-neutral-900 ${styles?.root}`}
+      style={styles?.root}
+      className="flex items-start gap-1 font-semibold text-neutral-900"
     >
       {withCurrency && (
-        <span className={`text-xs font-light ${styles?.currency}`}>
+        <span className="text-xs font-light" style={styles?.currency}>
           {currency}
         </span>
       )}{' '}

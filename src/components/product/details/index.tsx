@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-// import { showReview } from '../../../store/features/productDetailSlice';
-// import Model from '@/components/Model';
+import { useTranslation } from 'react-i18next';
 import FormatNumber from '@/utils/format-number';
 import RatingStars from '@/utils/ratingStars';
 
@@ -25,6 +24,7 @@ export default function ProductDetail({
   averageRating,
   price,
 }: TProductDetail) {
+  const { t } = useTranslation();
   const [activeImg, setActiveImg] = useState('');
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function ProductDetail({
         {/* --------- IMG ----------- */}
         <div className="flex flex-col gap-4 ">
           <div
-            className="w-full cursor-zoom-in overflow-hidden rounded-md border border-gray-300"
+            className="w-full cursor-zoom-in overflow-hidden rounded-md border border-gray-300 p-4"
             // onClick={() => dispatch(openModel())}
           >
             <img
@@ -53,7 +53,7 @@ export default function ProductDetail({
               <button
                 type="button"
                 key={image}
-                className={`h-[70px] w-[70px] cursor-pointer overflow-hidden rounded-md border ${
+                className={`h-16 w-16 cursor-pointer overflow-hidden rounded-md border p-2 ${
                   image === activeImg ? 'border-red-500' : 'border-gray-300'
                 }`}
                 onClick={() => {
@@ -103,7 +103,7 @@ export default function ProductDetail({
               type="button"
               className="flex-grow rounded-md bg-red-500 py-3 font-semibold text-white"
             >
-              Add To Cart
+              {t('add-to-cart')}
             </button>
             <div className="flex items-center gap-4">
               <div className=" flex h-full w-[48px] cursor-pointer items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100">

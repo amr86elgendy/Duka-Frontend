@@ -43,11 +43,13 @@ export default function CartSide({ onClose }: { onClose: () => void }) {
                   <div className="ms-4 flex flex-1 flex-col">
                     <div>
                       <div className="flex justify-between text-base font-medium text-gray-900">
-                        <h3>
-                          <Link to={`/items/${item._id}`}>
-                            {item.product.name}
-                          </Link>
-                        </h3>
+                        <Link
+                          to={`/items/${item._id}`}
+                          className="line-clamp-2 text-sm"
+                        >
+                          {item.product.name}
+                        </Link>
+
                         <p className="ms-4">{item.product.price}</p>
                       </div>
                       <p className="mt-1 text-sm text-gray-500">

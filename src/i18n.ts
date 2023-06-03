@@ -14,7 +14,7 @@ i18n
     fallbackLng: 'ar',
     lng: Cookies.get('ishop_lang') || 'ar',
     fallbackNS: 'common',
-    ns: ['common'],
+    ns: ['common', 'auth', 'navbar', 'header', 'products', 'filter'],
     defaultNS: 'common',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',

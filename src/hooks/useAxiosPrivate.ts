@@ -5,9 +5,9 @@ import { refreshTokenFn } from '@/apis/auth';
 
 export default function useAxiosPrivate() {
   const { accessToken, dispatch } = useAuthContext();
-  console.log('useAxiosPrivate run');
+  // console.log('useAxiosPrivate run');
   useEffect(() => {
-    console.log('effect useAxiosPrivate run');
+    // console.log('effect useAxiosPrivate run');
     const reqIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
         if (!config.headers.Authorization) {
@@ -41,7 +41,6 @@ export default function useAxiosPrivate() {
       axiosPrivate.interceptors.request.eject(reqIntercept);
       axiosPrivate.interceptors.response.eject(resIntercept);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   return axiosPrivate;

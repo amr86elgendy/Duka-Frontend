@@ -16,6 +16,7 @@ export default function FilterMenu({
   options,
 }: TFilterMenu<{ _id: string; name: string }>) {
   const { filters, dispatch } = useFilterContext();
+
   return (
     <Listbox
       value={filters[name]}

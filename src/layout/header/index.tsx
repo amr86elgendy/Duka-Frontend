@@ -103,7 +103,7 @@ export default function Header() {
             >
               <div className="relative">
                 <BsHandbag size={32} />
-                <span className="absolute top-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs ltr:-left-2 rtl:-right-2">
+                <span className="absolute top-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm text-xs ltr:-left-2 rtl:-right-2">
                   {totalItems}
                 </span>
               </div>
@@ -112,7 +112,13 @@ export default function Header() {
                 <FormatNumber
                   value={totalPrice}
                   withCurrency={false}
-                  styles={{ root: 'text-sm text-white' }}
+                  styles={{
+                    root: {
+                      color: 'white',
+                      fontSize: '0.875rem',
+                      lineHeight: '1.25rem',
+                    },
+                  }}
                 />
               </div>
             </button>

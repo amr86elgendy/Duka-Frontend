@@ -15,17 +15,17 @@ export default function Cart() {
 
   return (
     <section className="container grid grid-cols-[3fr_1fr] gap-4">
-      <div className="relative p-6 bg-white rounded-md">
+      <div className="relative rounded-md bg-white p-6">
         <LoadingOverlay visible={isLoading} />
-        <h1 className="mb-6 text-2xl font-semibold text-gray-800 capitalize">
+        <h1 className="mb-6 text-2xl font-semibold capitalize text-gray-800">
           your cart
         </h1>
-        <div className="flex items-center justify-between pb-4 mb-4">
+        <div className="mb-4 flex items-center justify-between pb-4">
           <p className="text-gray-400">{totalItems} items in total</p>
           <button
             type="button"
             onClick={() => clearCart()}
-            className="px-6 py-2 text-red-500 capitalize rounded-full bg-red-50"
+            className="rounded-full bg-red-50 px-6 py-2 capitalize text-red-500"
           >
             clear all
           </button>
@@ -41,26 +41,26 @@ export default function Cart() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-between p-6 bg-white rounded-md h-max">
-        <h1 className="pb-4 mb-4 text-2xl font-semibold text-gray-800 capitalize border-b">
+      <div className="flex h-max flex-col justify-between rounded-md bg-white p-6">
+        <h1 className="mb-4 border-b pb-4 text-2xl font-semibold capitalize text-gray-800">
           cart summary
         </h1>
 
-        <div className="flex items-center justify-between mb-2 capitalize">
+        <div className="mb-2 flex items-center justify-between capitalize">
           <p>subtotal</p>
-          <FormatNumber value={totalPrice} />
+          <FormatNumber value={totalPrice} withCurrency={false} />
         </div>
-        <div className="flex items-center justify-between pb-4 mb-4 capitalize border-b border-gray-300">
+        <div className="mb-4 flex items-center justify-between border-b border-gray-300 pb-4 capitalize">
           <p>shipping</p>
-          <FormatNumber value={shippingFee} />
+          <FormatNumber value={shippingFee} withCurrency={false} />
         </div>
-        <div className="flex items-center justify-between mb-4 font-semibold text-red-500 capitalize">
+        <div className="mb-4 flex items-center justify-between font-semibold capitalize text-red-500">
           <p className="text-black">total</p>
           <FormatNumber value={totalPrice + shippingFee} />
         </div>
         <Link
           to="/checkout"
-          className="py-3 font-semibold text-center text-white capitalize bg-red-500 rounded-md"
+          className="rounded-md bg-red-500 py-3 text-center font-semibold capitalize text-white"
         >
           proceed to checkout
         </Link>

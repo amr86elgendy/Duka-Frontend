@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { FaSpinner } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 import ShoppingItem from '../components/shopping/shoppingItem';
 import { useGetProducts } from '../apis/shopping';
 import FiltersComponent from '../components/shopping/filtersComponent';
@@ -9,6 +10,7 @@ import Error from './Error';
 import { TFilterState, useFilterContext } from '@/context/filter';
 
 export default function ShoppingPage() {
+  const { t } = useTranslation('products');
   const { filters } = useFilterContext();
 
   const selectedFilters = useMemo(() => {
@@ -40,7 +42,7 @@ export default function ShoppingPage() {
   return (
     <section className="container">
       <div className="rounded-md bg-white px-4 py-6">
-        <h1 className="mb-12 text-3xl font-semibold">All Products</h1>
+        <h1 className="mb-12 text-3xl font-semibold">{t('all-products')}</h1>
         <div className="flex flex-col gap-4 border-b border-gray-300 pb-4">
           <div className="flex items-center justify-between">
             <FiltersComponent />
@@ -65,12 +67,12 @@ export default function ShoppingPage() {
             <button
               type="button"
               onClick={() => fetchNextPage()}
-              className="flex h-10 w-32 items-center justify-center rounded-md bg-gray-600 px-4 py-2 text-white"
+              className="flex h-10 w-32 items-center justify-center rounded-md bg-gray-600 px-4 py-2 capitalize text-white"
             >
               {isFetchingNextPage ? (
                 <FaSpinner className=" animate-spin" size={22} />
               ) : (
-                'Load More'
+                t('load-more')
               )}
             </button>
           </div>

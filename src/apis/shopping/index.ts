@@ -22,6 +22,7 @@ type TProduct<T> = {
   name: string;
   numReviews: number;
   price: number;
+  priceAfterDiscount: number;
   quantity: number;
   sizes: string[];
   slug: string;

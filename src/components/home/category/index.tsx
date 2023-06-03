@@ -24,7 +24,7 @@ export default function Category() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h1 className="text-2xl font-semibold text-gray-900">
           Digital & Electronic
         </h1>
@@ -43,9 +43,9 @@ export default function Category() {
           </li>
         </ul>
       </div>
-      <div className="grid grid-cols-[1fr_max-content_1fr] rounded-md overflow-hidden">
+      <div className="grid grid-cols-[1fr_max-content_1fr] overflow-hidden rounded-md">
         <CategoryList />
-        <div className="grid grid-cols-3 bg-gray-200 gap-[1px] border-r">
+        <div className="grid grid-cols-3 gap-[1px] border-r bg-gray-200">
           {isLoading
             ? [...Array(3).keys()].map((el) => <Skeleton key={el} />)
             : restProducts.map((p) => (

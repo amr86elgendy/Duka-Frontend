@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AiOutlineEye, AiOutlineHeart, AiOutlineStar } from 'react-icons/ai';
 import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
@@ -9,8 +10,10 @@ type TProductCard = {
   name: string;
   images: string[];
   price: number;
+  priceAfterDiscount: number;
   colors: { _id: string; name: string }[];
   sizes: string[];
+  numReviews: number;
   _id: string;
 };
 
@@ -18,10 +21,13 @@ export default function ProductCard({
   name,
   images,
   price,
+  priceAfterDiscount,
   colors,
   sizes,
+  numReviews,
   _id,
 }: TProductCard) {
+  const { t } = useTranslation();
   const { mutate: addToCart, isLoading } = useAddToCart({
     amount: 1,
     color: colors[0]._id,
@@ -29,44 +35,49 @@ export default function ProductCard({
     size: sizes[0],
   });
 
+  const priceDifference = price - priceAfterDiscount;
+  const discountPercent = ((priceDifference * 100) / price).toFixed(0);
+
   return (
-    <div className="relative flex flex-col w-56 p-4 bg-white group">
+    <div className="group relative flex w-56 flex-col bg-white p-4">
       <LoadingOverlay visible={isLoading} />
-      <div className="relative overflow-hidden w-[177px] h-[177px] mb-2">
-        <div className="absolute z-10 px-3 text-sm text-white bg-green-600 rounded-md">
-          <p>-7%</p>
-        </div>
+      <div className="relative mb-2 h-[177px] w-[177px] overflow-hidden">
+        {priceDifference > 0 && (
+          <div className="absolute z-10 rounded-md bg-green-600 px-3 text-sm text-white">
+            <p>-{discountPercent}%</p>
+          </div>
+        )}
         <Link to={`/products/${_id}`}>
           <img
-            className="object-contain w-full h-full transition-all duration-300 cursor-pointer group-hover:scale-110"
+            className="h-full w-full cursor-pointer object-contain transition-all duration-300 group-hover:scale-110"
             src={images[0]}
             alt="product-img"
           />
         </Link>
-        <div className="absolute top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 -right-10 group-hover:right-0">
-          <div className="relative group/quickview">
-            <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
-              <AiOutlineEye size={24} />
+        <div className="absolute -end-10 top-0 flex flex-col gap-2 text-gray-500 transition-all duration-300 group-hover:end-0">
+          <div className="group/quickview relative">
+            <div className="flex cursor-pointer items-center justify-center rounded-md bg-gray-100 p-1.5 hover:bg-red-500 hover:text-white">
+              <AiOutlineEye size={22} />
             </div>
-            <span className="bg-gray-500 text-white absolute z-50 top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover/quickview:visible group-hover/quickview:opacity-100 transition pointer-events-none">
-              Quick View
+            <span className="pointer-events-none invisible absolute end-10 top-1/2 z-50  -translate-y-1/2 whitespace-nowrap rounded-md bg-gray-500 px-2 py-1 text-xs text-white opacity-0 transition group-hover/quickview:visible group-hover/quickview:opacity-100">
+              {t('quick-view')}
             </span>
           </div>
 
-          <div className="relative group/wishlist">
-            <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
-              <AiOutlineHeart size={24} />
+          <div className="group/wishlist relative">
+            <div className="flex cursor-pointer items-center justify-center rounded-md bg-gray-100 p-1.5 hover:bg-red-500 hover:text-white">
+              <AiOutlineHeart size={22} />
             </div>
-            <span className="bg-gray-500 text-white absolute top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover:visible group-hover/wishlist:opacity-100 transition pointer-events-none">
+            <span className="pointer-events-none invisible absolute end-10 top-1/2 -translate-y-1/2 whitespace-nowrap  rounded-md bg-gray-500 px-2 py-1 text-xs text-white opacity-0 transition group-hover:visible group-hover/wishlist:opacity-100">
               WishList
             </span>
           </div>
 
-          <div className="relative group/compare">
-            <div className="p-2 bg-gray-100 rounded-md cursor-pointer hover:bg-red-500 hover:text-white">
-              <BiLayer size={24} />
+          <div className="group/compare relative">
+            <div className="flex cursor-pointer items-center justify-center rounded-md bg-gray-100 p-1.5 hover:bg-red-500 hover:text-white">
+              <BiLayer size={22} />
             </div>
-            <span className="bg-gray-500 text-white absolute top-8 right-[43px] -translate-y-full whitespace-nowrap  invisible opacity-0 px-2 py-1 text-sm rounded-md group-hover:visible group-hover/compare:opacity-100 transition pointer-events-none">
+            <span className="pointer-events-none invisible absolute end-10 top-1/2 -translate-y-1/2 whitespace-nowrap  rounded-md bg-gray-500 px-2 py-1 text-xs text-white opacity-0 transition group-hover:visible group-hover/compare:opacity-100">
               Compare
             </span>
           </div>
@@ -74,8 +85,8 @@ export default function ProductCard({
       </div>
 
       {/* ---------------------------- */}
-      <div className="flex flex-col gap-2 mb-4">
-        <h1 className="font-semibold text-blue-700 capitalize line-clamp-2">
+      <div className="my-4 flex flex-col gap-2">
+        <h1 className="line-clamp-2 text-center text-sm font-semibold capitalize text-blue-700">
           {name}
         </h1>
         <div className="flex items-center gap-2">
@@ -89,7 +100,9 @@ export default function ProductCard({
             })}
           </div>
           <div className="text-sm text-gray-400">
-            <p>01 review</p>
+            <p>
+              {numReviews} {t('reviews', { count: numReviews })}
+            </p>
           </div>
         </div>
         <FormatNumber value={price} />
@@ -97,10 +110,10 @@ export default function ProductCard({
 
       <button
         type="button"
-        className="py-3 mt-auto text-sm font-semibold text-white capitalize bg-red-500 rounded-md"
+        className="mt-auto rounded-md bg-red-500 py-3 text-sm font-semibold capitalize text-white"
         onClick={() => addToCart()}
       >
-        Add To Cart
+        {t('add-to-cart')}
       </button>
     </div>
   );

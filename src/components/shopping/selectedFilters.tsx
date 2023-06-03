@@ -13,7 +13,7 @@ export default React.memo(function SelectedFilters({
       {filters?.map((filter) => (
         <div
           key={filter[1]}
-          className="flex items-center gap-2 px-6 py-2 border border-gray-300 rounded-full cursor-default"
+          className="flex cursor-default items-center gap-2 rounded-full border border-gray-300 px-6 py-2"
         >
           <AiOutlineClose
             size={20}
@@ -23,17 +23,17 @@ export default React.memo(function SelectedFilters({
                 value: filter[1],
               })
             }
-            className="p-0.5 rounded cursor-pointer hover:bg-gray-100"
+            className="cursor-pointer rounded p-0.5 hover:bg-gray-100"
           />
-          <span className="capitalize">{filter[0]}</span> -{' '}
-          <span>{filter[1]}</span>
+          <span className="text-sm capitalize">{filter[0]}</span> -{' '}
+          <span className="text-sm">{filter[1]}</span>
         </div>
       ))}
       {filters.length > 1 && (
         <button
           type="button"
           onClick={() => dispatch('CLEAR_ALL_FILTERS')}
-          className="px-6 py-2 text-red-500 capitalize rounded-full bg-red-50"
+          className="rounded-full bg-red-50 px-6 py-2 text-sm font-medium capitalize text-red-500"
         >
           clear all
         </button>

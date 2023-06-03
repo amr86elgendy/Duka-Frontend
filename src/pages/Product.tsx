@@ -17,22 +17,22 @@ export default function ProductPage() {
 
   return (
     <section className="container">
-      <div className="grid grid-cols-[5fr_2fr] w-full gap-4  mb-8">
+      <div className="mb-8 grid w-full grid-cols-[5fr_2fr]  gap-4">
         {/* ----------------- Product ----------------- */}
         {isLoading ? (
           <SingleProductSkeleton />
         ) : (
-          <div className="p-8 bg-white rounded-md">
+          <div className="rounded-md bg-white p-8">
             <ProductDetail {...product} />
           </div>
         )}
         {/* ----------------- Similar Products ----------------- */}
-        <div className="p-8 bg-white rounded-md">
+        <div className="rounded-md bg-white p-8">
           <SimilarProducts />
         </div>
       </div>
       {/* ----------------- Desc & Rviews ----------------- */}
-      <div className="p-8 bg-white rounded-md">
+      <div className="rounded-md bg-white p-8">
         {product && (
           <ProductTabs
             description={product.description}

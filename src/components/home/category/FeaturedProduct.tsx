@@ -14,16 +14,16 @@ export default function FeaturedProduct({
   description,
 }: FeaturedProductProp) {
   return (
-    <div className="p-6 bg-white ">
-      <div className=" max-w-[60%] m-auto bg-red-500 ">
+    <div className="bg-white p-6 ">
+      <div className=" m-auto max-w-[60%] bg-red-500 ">
         <img
-          className="w-full h-full transition-all duration-200 cursor-pointer hover:scale-110"
+          className="h-full w-full cursor-pointer transition-all duration-200 hover:scale-110"
           src={images[0]}
           alt=""
         />
       </div>
-      <div className="flex flex-col gap-2 py-6 my-6 border-b">
-        <h1 className="font-semibold text-blue-700 capitalize">{name}</h1>
+      <div className="my-6 flex flex-col gap-2 border-b py-6">
+        <h1 className="font-semibold capitalize text-blue-700">{name}</h1>
         <div className="flex items-center gap-2">
           <FormatNumber value={price} />
         </div>

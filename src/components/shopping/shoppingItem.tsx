@@ -1,7 +1,7 @@
+import { useTranslation } from 'react-i18next';
 import { AiOutlineStar, AiOutlineHeart } from 'react-icons/ai';
 import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import i18next from 'i18next';
 import FormatNumber from '@/utils/format-number';
 import { useAddToCart } from '@/apis/cart';
 import LoadingOverlay from '@/utils/overlay';
@@ -9,33 +9,43 @@ import LoadingOverlay from '@/utils/overlay';
 type TShoppingItem = {
   name: string;
   price: number;
+  priceAfterDiscount: number;
   colors: { _id: string; name: string }[];
   images: string[];
   sizes: string[];
+  numReviews: number;
   _id: string;
 };
 
 export default function ProductItem({
   name,
   price,
+  priceAfterDiscount,
   colors,
   images,
   sizes,
+  numReviews,
   _id,
 }: TShoppingItem) {
+  const { t } = useTranslation();
   const { mutate: addToCart, isLoading } = useAddToCart({
     amount: 1,
     color: colors[0]._id,
     productId: _id,
     size: sizes[0],
   });
+  const priceDifference = price - priceAfterDiscount;
+  const discountPercent = ((priceDifference * 100) / price).toFixed(0);
+
   return (
     <div className="group relative flex flex-col border-r p-4">
       <LoadingOverlay visible={isLoading} />
       <div className="relative mb-2 flex flex-col overflow-hidden">
-        <div className="absolute z-[5] rounded-md bg-green-600 px-3 text-sm text-white">
-          <p>-7%</p>
-        </div>
+        {priceDifference > 0 && (
+          <div className="absolute z-[5] rounded-md bg-green-600 px-3 text-sm text-white">
+            <p>-{discountPercent}%</p>
+          </div>
+        )}
         <Link to={`/products/${_id}`} className="mx-auto ">
           <img
             className="h-[230px] w-[230px] cursor-pointer object-contain transition-all duration-300 group-hover:scale-110"
@@ -65,10 +75,10 @@ export default function ProductItem({
         </div>
       </div>
       {/* ---------- Title & Stars & Price ------------ */}
-      <div className="mb-4 flex flex-col gap-2">
-        <h1 className="line-clamp-2 font-semibold capitalize text-blue-700">
+      <div className="my-4 flex flex-col gap-2">
+        <p className="line-clamp-2 text-center text-sm font-semibold capitalize text-blue-700 2xl:text-base">
           {name}
-        </h1>
+        </p>
         <div className="flex items-center gap-2">
           <div className="flex text-yellow-500 ">
             {[...Array(5).keys()].map((el) => {
@@ -80,7 +90,9 @@ export default function ProductItem({
             })}
           </div>
           <div className="text-sm text-gray-400">
-            <p>01 review</p>
+            <p>
+              {numReviews} {t('reviews', { count: numReviews })}
+            </p>
           </div>
         </div>
         <FormatNumber value={price} />
@@ -92,13 +104,13 @@ export default function ProductItem({
           className="rounded-md bg-red-500 py-3 text-sm font-semibold uppercase text-white"
           onClick={() => addToCart()}
         >
-          Add To Cart
+          {t('add-to-cart')}
         </button>
         <button
           type="button"
           className="rounded-md border-2 border-gray-300 py-3 text-sm font-semibold uppercase text-gray-500 "
         >
-          quick view
+          {t('quick-view')}
         </button>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
@@ -12,6 +13,7 @@ type TListItem = {
   sizes: string[];
   quantity: number;
   price: number;
+  priceAfterDiscount: number;
 };
 
 export default function ListItem({
@@ -22,20 +24,23 @@ export default function ListItem({
   sizes,
   quantity,
   price,
+  priceAfterDiscount,
 }: TListItem) {
+  const { t } = useTranslation();
   const { mutate: addToCart, isLoading } = useAddToCart({
     amount: 1,
     color: colors[0]._id,
     productId: _id,
     size: sizes[0],
   });
+  const priceDifference = price - priceAfterDiscount;
   return (
-    <div className="group relative grid grid-cols-[2fr_4fr]  gap-4 p-4  border border-gray-300 rounded-md">
+    <div className="group relative grid grid-cols-[2fr_4fr]  gap-4 rounded-md  border border-gray-300 p-4">
       <LoadingOverlay visible={isLoading} />
       <div className="overflow-hidden rounded-md">
         <Link to={`/products/${_id}`}>
           <img
-            className="object-contain w-full h-full transition-all duration-300 group-hover:scale-110"
+            className="h-full w-full object-contain transition-all duration-300 group-hover:scale-110"
             src={images[0]}
             alt=""
           />
@@ -45,15 +50,15 @@ export default function ListItem({
         <div className="flex justify-between gap-2 ">
           <Link
             to={`/products/${_id}`}
-            className="block mb-2 text-sm font-semibold text-gray-700 capitalize hover:text-red-500"
+            className="mb-2 line-clamp-2 text-xs font-semibold capitalize text-gray-700 hover:text-red-500"
           >
-            {name.substring(0, 30)} ...
+            {name}
           </Link>
           <p className="flex-shrink-0 text-xs text-green-600">
             {quantity} in stock
           </p>
         </div>
-        <div className="flex items-center gap-2 mb-2">
+        <div className="mb-2 flex items-center gap-2">
           <div className="flex text-yellow-500 ">
             <AiOutlineStar />
             <AiOutlineStar />
@@ -61,25 +66,42 @@ export default function ListItem({
             <AiOutlineStar />
             <AiOutlineStar className="text-gray-400" />
           </div>
-          <p className="text-sm text-gray-400">01 review</p>
+          <p className="text-xs text-gray-400">01 review</p>
         </div>
-        <div className="flex items-center gap-2 mb-4">
-          <FormatNumber value={price} />
-          <h3 className="text-gray-500 line-through">$599.99</h3>
+        <div className="mb-4 flex items-center gap-2">
+          <FormatNumber
+            value={priceDifference > 0 ? priceAfterDiscount : price}
+          />
+          {priceDifference > 0 && (
+            <FormatNumber
+              value={price}
+              withCurrency={false}
+              styles={{
+                root: {
+                  color: 'gray',
+                  textDecoration: 'line-through',
+                  fontWeight: 'normal',
+                  fontStyle: 'italic',
+                  fontSize: '0.875rem',
+                  lineHeight: '1.25rem',
+                },
+              }}
+            />
+          )}
         </div>
-        <div className="flex justify-between gap-2 mt-auto">
+        <div className="mt-auto flex justify-between gap-2">
           <button
             type="button"
-            className="flex-1 py-3 text-sm font-semibold text-white bg-red-500 rounded-md"
+            className="flex-1 rounded-md bg-red-500 py-2 text-xs font-semibold text-white"
             onClick={() => addToCart()}
           >
-            Add to cart
+            {t('add-to-cart')}
           </button>
           <button
             type="button"
-            className="flex-1 text-sm font-semibold text-gray-700 border border-gray-300 rounded-md"
+            className="flex-1 rounded-md border border-gray-300 text-xs font-semibold text-gray-700"
           >
-            Quick view
+            {t('quick-view')}
           </button>
         </div>
       </div>
