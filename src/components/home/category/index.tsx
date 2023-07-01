@@ -43,7 +43,7 @@ export default function Category() {
           </li>
         </ul>
       </div>
-      <div className="grid grid-cols-[1fr_max-content_1fr] overflow-hidden rounded-md">
+      <div className="grid grid-cols-[1fr_50%_1fr] overflow-hidden rounded-md">
         <CategoryList />
         <div className="grid grid-cols-3 gap-[1px] border-r bg-gray-200">
           {isLoading

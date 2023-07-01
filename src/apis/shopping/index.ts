@@ -7,7 +7,7 @@ import qs from 'query-string';
 import axiosDefault from '../axios';
 import { TFilterState } from '@/context/filter';
 
-type TProduct<T> = {
+export type TProduct<T> = {
   _id: string;
   averageRating: number;
   brand: T;

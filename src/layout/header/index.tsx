@@ -5,18 +5,18 @@ import { BiChevronDown } from 'react-icons/bi';
 import { FiSearch } from 'react-icons/fi';
 import AccountMenu from './AccountMenu';
 import { useAuthContext } from '@/context/auth';
-import { useCartContext } from '@/context/cart';
 import FormatNumber from '@/utils/format-number';
 import useToggle from '@/hooks/useToggle';
 import DrawerView from '@/utils/drawer';
-import CartSide from '@/components/cart/CartSide';
+import CartSide from '@/components/cart/cartSide';
+import { useGetCart } from '@/apis/cart';
 
 export default function Header() {
   const { t } = useTranslation(['header']);
   const { isAuthenticated } = useAuthContext();
-  const {
-    cart: { totalPrice, totalItems },
-  } = useCartContext();
+
+  const { data: cart } = useGetCart();
+
   const [openSideCart, toggleSideCart] = useToggle();
 
   return (
@@ -104,22 +104,26 @@ export default function Header() {
               <div className="relative">
                 <BsHandbag size={32} />
                 <span className="absolute top-0 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-sm text-xs ltr:-left-2 rtl:-right-2">
-                  {totalItems}
+                  {cart?.totalItems ?? 0}
                 </span>
               </div>
               <div>
                 <h3 className=" text-neutral-400">{t('cart')}</h3>
-                <FormatNumber
-                  value={totalPrice}
-                  withCurrency={false}
-                  styles={{
-                    root: {
-                      color: 'white',
-                      fontSize: '0.875rem',
-                      lineHeight: '1.25rem',
-                    },
-                  }}
-                />
+                {cart ? (
+                  <FormatNumber
+                    value={cart.totalPrice}
+                    withCurrency={false}
+                    styles={{
+                      root: {
+                        color: 'white',
+                        fontSize: '0.875rem',
+                        lineHeight: '1.25rem',
+                      },
+                    }}
+                  />
+                ) : (
+                  '00.00'
+                )}
               </div>
             </button>
           </div>

@@ -31,11 +31,11 @@ export default function PasswordInput<TFormValues>({
                 {...field}
                 {...rest}
                 type={type}
-                className="relative block w-full px-3 py-3 text-gray-900 placeholder-gray-500 border border-gray-300 rounded-md outline-none appearance-none sm:text-sm"
+                className="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 outline-none sm:text-sm"
               />
               <button
                 type="button"
-                className="absolute -translate-y-1/2 cursor-pointer top-1/2 right-4"
+                className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
                 onClick={() => toggleType()}
               >
                 {type === 'password' ? (

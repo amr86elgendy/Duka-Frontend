@@ -10,7 +10,7 @@ export default function Button({ children, isLoading, ...rest }: TButtonProps) {
     <button
       type="submit"
       disabled={isLoading}
-      className={`w-full px-10 py-3 font-semibold text-white rounded-md ${
+      className={`w-full rounded-md px-10 py-3 font-semibold text-white ${
         isLoading ? 'bg-red-300' : 'bg-red-500 '
       }`}
       {...rest}
@@ -19,7 +19,7 @@ export default function Button({ children, isLoading, ...rest }: TButtonProps) {
         <>
           <CircleLoadingIcon
             color="white"
-            className="inline w-4 h-4 mr-3 animate-spin"
+            className="mr-3 inline h-4 w-4 animate-spin"
           />{' '}
           Loading...
         </>

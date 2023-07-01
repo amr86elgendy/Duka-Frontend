@@ -28,12 +28,7 @@ export default function ProductItem({
   _id,
 }: TShoppingItem) {
   const { t } = useTranslation();
-  const { mutate: addToCart, isLoading } = useAddToCart({
-    amount: 1,
-    color: colors[0]._id,
-    productId: _id,
-    size: sizes[0],
-  });
+  const { mutate: addToCart, isLoading } = useAddToCart();
   const priceDifference = price - priceAfterDiscount;
   const discountPercent = ((priceDifference * 100) / price).toFixed(0);
 
@@ -102,7 +97,14 @@ export default function ProductItem({
         <button
           type="button"
           className="rounded-md bg-red-500 py-3 text-sm font-semibold uppercase text-white"
-          onClick={() => addToCart()}
+          onClick={() =>
+            addToCart({
+              amount: 1,
+              color: colors[0]._id,
+              productId: _id,
+              size: sizes[0],
+            })
+          }
         >
           {t('add-to-cart')}
         </button>

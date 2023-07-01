@@ -23,12 +23,12 @@ export default function Checkbox<TFormValues>({
             <input
               {...field}
               {...rest}
-              className="w-4 h-4 border-gray-300 rounded"
+              className="h-4 w-4 rounded border-gray-300"
               type="checkbox"
             />
             <label
               htmlFor={rest.id ? rest.id : ''}
-              className="block ml-2 text-sm text-gray-900"
+              className="ml-2 block text-sm text-gray-900"
             >
               {label}
             </label>

@@ -1,5 +1,5 @@
-import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
 type TModalComponent = {
   children: React.ReactNode;
@@ -7,14 +7,14 @@ type TModalComponent = {
   onClose: () => void;
 };
 
-export default function ModelView({
+export default function ModalView({
   children,
   opened,
   onClose,
 }: TModalComponent) {
   return (
     <Transition show={opened} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" className="relative z-30" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -28,7 +28,7 @@ export default function ModelView({
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex items-center justify-center min-h-full p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -38,7 +38,7 @@ export default function ModelView({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <Dialog.Panel className="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 {children}
               </Dialog.Panel>
             </Transition.Child>

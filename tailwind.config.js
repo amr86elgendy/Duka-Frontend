@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line import/no-extraneous-dependencies
+// import colors from 'tailwindcss/colors';
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -6,12 +9,13 @@ export default {
       center: true,
       padding: {
         DEFAULT: '1rem',
-        // sm: '2rem',
-        // lg: '3rem',
-        // xl: '4rem',
-        // '2xl': '5rem',
+        sm: '2rem',
+        lg: '3rem',
+        xl: '4rem',
+        '2xl': '5rem',
       },
     },
+    // colors: { ...colors, black: colors.gray[8] },
     extend: {
       colors: {
         primary: { 0: '#181F2B', 1: '#2B313C', 2: '#223260' },

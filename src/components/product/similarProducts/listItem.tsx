@@ -27,12 +27,7 @@ export default function ListItem({
   priceAfterDiscount,
 }: TListItem) {
   const { t } = useTranslation();
-  const { mutate: addToCart, isLoading } = useAddToCart({
-    amount: 1,
-    color: colors[0]._id,
-    productId: _id,
-    size: sizes[0],
-  });
+  const { mutate: addToCart, isLoading } = useAddToCart();
   const priceDifference = price - priceAfterDiscount;
   return (
     <div className="group relative grid grid-cols-[2fr_4fr]  gap-4 rounded-md  border border-gray-300 p-4">
@@ -93,7 +88,14 @@ export default function ListItem({
           <button
             type="button"
             className="flex-1 rounded-md bg-red-500 py-2 text-xs font-semibold text-white"
-            onClick={() => addToCart()}
+            onClick={() =>
+              addToCart({
+                amount: 1,
+                color: colors[0]._id,
+                productId: _id,
+                size: sizes[0],
+              })
+            }
           >
             {t('add-to-cart')}
           </button>
