@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useDeleteCartItem } from '@/apis/cart';
-import { TCartItem } from '@/context/cart';
+import { useDeleteCartItem, TCartItem } from '@/apis/cart';
 import FormatNumber from '@/utils/format-number';
 import LoadingOverlay from '@/utils/overlay';
 

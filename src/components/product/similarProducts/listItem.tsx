@@ -4,17 +4,7 @@ import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
 import { useAddToCart } from '@/apis/cart';
 import LoadingOverlay from '@/utils/overlay';
-
-type TListItem = {
-  _id: string;
-  name: string;
-  images: string[];
-  colors: { _id: string; name: string }[];
-  sizes: string[];
-  quantity: number;
-  price: number;
-  priceAfterDiscount: number;
-};
+import { TProduct } from '@/apis/shopping';
 
 export default function ListItem({
   _id,
@@ -25,7 +15,7 @@ export default function ListItem({
   quantity,
   price,
   priceAfterDiscount,
-}: TListItem) {
+}: TProduct<string>) {
   const { t } = useTranslation();
   const { mutate: addToCart, isLoading } = useAddToCart();
   const priceDifference = price - priceAfterDiscount;
@@ -91,7 +81,7 @@ export default function ListItem({
             onClick={() =>
               addToCart({
                 amount: 1,
-                color: colors[0]._id,
+                color: colors[0],
                 productId: _id,
                 size: sizes[0],
               })

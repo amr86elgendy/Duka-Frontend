@@ -12,7 +12,7 @@ export default function SimilarProducts() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <h3 className="text-xl font-semibold text-gray-800 ">
           Similar Products
         </h3>
