@@ -2,26 +2,24 @@ import { useTranslation } from 'react-i18next';
 import { AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
-import { useAddToCart } from '@/apis/cart';
-import LoadingOverlay from '@/utils/overlay';
 import { TProduct } from '@/apis/shopping';
+import QuickViewBtn from '@/utils/quickViewBtn';
 
 export default function ListItem({
   _id,
   name,
+  description,
   images,
-  colors,
-  sizes,
   quantity,
+  colors,
   price,
+  numReviews,
   priceAfterDiscount,
-}: TProduct<string>) {
+}: TProduct<{ _id: string; name: string }>) {
   const { t } = useTranslation();
-  const { mutate: addToCart, isLoading } = useAddToCart();
   const priceDifference = price - priceAfterDiscount;
   return (
-    <div className="group relative grid grid-cols-[2fr_4fr]  gap-4 rounded-md  border border-gray-300 p-4">
-      <LoadingOverlay visible={isLoading} />
+    <div className="group grid grid-cols-[2fr_4fr] gap-4 rounded-md border border-gray-300 p-4">
       <div className="overflow-hidden rounded-md">
         <Link to={`/products/${_id}`}>
           <img
@@ -31,7 +29,7 @@ export default function ListItem({
           />
         </Link>
       </div>
-      <div className="flex flex-col ">
+      <div className="flex flex-col items-start">
         <div className="flex justify-between gap-2 ">
           <Link
             to={`/products/${_id}`}
@@ -74,28 +72,22 @@ export default function ListItem({
             />
           )}
         </div>
-        <div className="mt-auto flex justify-between gap-2">
-          <button
+
+        <QuickViewBtn
+          colors={colors}
+          description={description}
+          name={name}
+          image={images[0]}
+          numReviews={numReviews}
+          price={price}
+          className="px-4 py-2 text-xs hover:bg-gray-50"
+        />
+        {/* <button
             type="button"
-            className="flex-1 rounded-md bg-red-500 py-2 text-xs font-semibold text-white"
-            onClick={() =>
-              addToCart({
-                amount: 1,
-                color: colors[0],
-                productId: _id,
-                size: sizes[0],
-              })
-            }
-          >
-            {t('add-to-cart')}
-          </button>
-          <button
-            type="button"
-            className="flex-1 rounded-md border border-gray-300 text-xs font-semibold text-gray-700"
+            className="rounded-md border border-gray-300 text-xs font-semibold text-gray-700"
           >
             {t('quick-view')}
-          </button>
-        </div>
+          </button> */}
       </div>
     </div>
   );

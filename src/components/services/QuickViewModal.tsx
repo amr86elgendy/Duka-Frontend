@@ -77,14 +77,15 @@ export default function QuickViewModal() {
                     </ul>
                     {/* colors */}
                     <div className="mb-6">
-                      <h1 className="mb-2 ">Color:</h1>
-                      <div className="flex gap-2">
+                      <h1 className="mb-4 capitalize">{t('colors')} :</h1>
+                      <div className="flex gap-6">
                         {product?.colors.map((color) => (
                           <div
                             key={color._id}
-                            className="flex h-6 w-6 items-center justify-center rounded-md"
+                            className="flex h-6 w-6 items-center justify-center rounded-sm outline-offset-4"
                             style={{
                               backgroundColor: color.name,
+                              outline: `2px solid ${color.name}`,
                             }}
                           />
                         ))}

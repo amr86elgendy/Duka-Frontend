@@ -3,11 +3,14 @@ import { AiOutlineStar, AiOutlineHeart } from 'react-icons/ai';
 import { BiLayer } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import FormatNumber from '@/utils/format-number';
-import { useAddToCart } from '@/apis/cart';
-import LoadingOverlay from '@/utils/overlay';
+import { useGetCart } from '@/apis/cart';
+import AddToCartBtn from '@/utils/addToCartBtn';
+import CartControls from '@/utils/cartControls';
+import QuickViewBtn from '@/utils/quickViewBtn';
 
 type TShoppingItem = {
   name: string;
+  description: string;
   price: number;
   priceAfterDiscount: number;
   colors: { _id: string; name: string }[];
@@ -19,6 +22,7 @@ type TShoppingItem = {
 
 export default function ProductItem({
   name,
+  description,
   price,
   priceAfterDiscount,
   colors,
@@ -28,13 +32,14 @@ export default function ProductItem({
   _id,
 }: TShoppingItem) {
   const { t } = useTranslation();
-  const { mutate: addToCart, isLoading } = useAddToCart();
+  const { data: cart } = useGetCart();
+  const isExisted = cart?.items.find((item) => item.product._id === _id);
+
   const priceDifference = price - priceAfterDiscount;
   const discountPercent = ((priceDifference * 100) / price).toFixed(0);
 
   return (
-    <div className="group relative flex flex-col border-r p-4">
-      <LoadingOverlay visible={isLoading} />
+    <div className="group flex flex-col border-r p-4">
       <div className="relative mb-2 flex flex-col overflow-hidden">
         {priceDifference > 0 && (
           <div className="absolute z-[5] rounded-md bg-green-600 px-3 text-sm text-white">
@@ -94,26 +99,20 @@ export default function ProductItem({
       </div>
       {/* Buttons */}
       <div className="mt-auto flex flex-col gap-2">
-        <button
-          type="button"
-          className="rounded-md bg-red-500 py-3 text-sm font-semibold uppercase text-white"
-          onClick={() =>
-            addToCart({
-              amount: 1,
-              color: colors[0]._id,
-              productId: _id,
-              size: sizes[0],
-            })
-          }
-        >
-          {t('add-to-cart')}
-        </button>
-        <button
-          type="button"
-          className="rounded-md border-2 border-gray-300 py-3 text-sm font-semibold uppercase text-gray-500 "
-        >
-          {t('quick-view')}
-        </button>
+        {isExisted ? (
+          <CartControls productId={_id} />
+        ) : (
+          <AddToCartBtn color={colors[0]._id} productId={_id} size={sizes[0]} />
+        )}
+        <QuickViewBtn
+          colors={colors}
+          description={description}
+          image={images[0]}
+          name={name}
+          numReviews={numReviews}
+          price={price}
+          className="border-2 py-3"
+        />
       </div>
     </div>
   );

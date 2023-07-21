@@ -6,12 +6,14 @@ import { TFilterState, useFilterContext } from '@/context/filter';
 
 type TFilterMenu<TData> = {
   name: keyof TFilterState;
+  label: string;
   multiple: boolean;
   options: Record<keyof TData, string>[];
 };
 
 export default function FilterMenu({
   name,
+  label,
   multiple,
   options,
 }: TFilterMenu<{ _id: string; name: string }>) {
@@ -32,7 +34,7 @@ export default function FilterMenu({
           }`}
         >
           <span className="block truncate text-sm font-semibold capitalize">
-            {name}
+            {label}
           </span>
           <BiChevronDown
             size={24}
@@ -80,7 +82,7 @@ export default function FilterMenu({
                           size={12}
                           className={`${
                             selected ? 'text-white' : 'text-gray-50'
-                          } pointer-events-none absolute left-[4px] top-1`}
+                          } pointer-events-none absolute left-1 top-1`}
                         />
                       ) : (
                         <div

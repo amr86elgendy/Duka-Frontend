@@ -14,15 +14,25 @@ export default function ShoppingPage() {
   const { filters } = useFilterContext();
 
   const selectedFilters = useMemo(() => {
-    // console.log('useMemo selectedFilters');
-    const arr: [keyof TFilterState, string][] = [];
+    const arr: { label: string; name: keyof TFilterState; value: string }[] =
+      [];
     Object.entries(filters).forEach(([key, value]) => {
       if (value) {
         if (Array.isArray(value)) {
           value.forEach((v) =>
-            arr.push([key as keyof TFilterState, v.split(',')[1]])
+            // arr.push([t(key as keyof TFilterState), v.split(',')[1]])
+            arr.push({
+              label: t(key),
+              name: key as keyof TFilterState,
+              value: v.split(',')[1],
+            })
           );
-        } else arr.push([key as keyof TFilterState, value.split(',')[1]]);
+        } else
+          arr.push({
+            label: t(key),
+            name: key as keyof TFilterState,
+            value: value.split(',')[1],
+          });
       }
     });
     return arr;

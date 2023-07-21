@@ -42,5 +42,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-nested-ternary': 'off',
     'no-return-assign': 'off',
+    'react/jsx-no-bind': 'off',
   },
 };

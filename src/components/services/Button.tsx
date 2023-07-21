@@ -5,13 +5,18 @@ type TButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   isLoading?: boolean;
 };
 
-export default function Button({ children, isLoading, ...rest }: TButtonProps) {
+export default function Button({
+  children,
+  isLoading,
+  className,
+  ...rest
+}: TButtonProps) {
   return (
     <button
-      type="submit"
+      type="button"
       disabled={isLoading}
-      className={`w-full rounded-md px-10 py-3 font-semibold text-white ${
-        isLoading ? 'bg-red-300' : 'bg-red-500 '
+      className={`w-full rounded-md px-10 py-3 font-semibold text-white ${className} ${
+        isLoading ? 'bg-red-300' : 'bg-red-500'
       }`}
       {...rest}
     >

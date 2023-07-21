@@ -55,7 +55,8 @@ const getProducts = async ({
   let filters = {} as TFilterState;
 
   // console.log(queryKey[1].filters);
-  if (Object.prototype.hasOwnProperty.call(queryKey[1], 'filters')) {
+  // eslint-disable-next-line no-prototype-builtins
+  if ('filters' in queryKey[1]) {
     // eslint-disable-next-line no-restricted-syntax
     for (const key in queryKey[1].filters) {
       if (key === 'sort') {
