@@ -15,7 +15,7 @@ export default function ListItem({
   price,
   numReviews,
   priceAfterDiscount,
-}: TProduct<{ _id: string; name: string }>) {
+}: TProduct) {
   const { t } = useTranslation();
   const priceDifference = price - priceAfterDiscount;
   return (

@@ -7,13 +7,13 @@ import qs from 'query-string';
 import axiosDefault from '../axios';
 import { TFilterState } from '@/context/filter';
 
-export type TProduct<T> = {
+export type TProduct = {
   _id: string;
   averageRating: number;
-  brand: T;
-  category: T;
-  subCategory: T;
-  colors: T[];
+  brand: { _id: string; name: string };
+  category: { _id: string; name: string };
+  subCategory: { _id: string; name: string };
+  colors: { _id: string; name: string }[];
   createdAt: string;
   description: string;
   featured: boolean;
@@ -36,7 +36,7 @@ type TGetProductsReturn = {
   currentPage: number;
   lastPage: number;
   pageCount: number;
-  products: TProduct<{ _id: string; name: string }>[];
+  products: TProduct[];
   totalCount: number;
 };
 
@@ -99,9 +99,7 @@ export const useGetProducts = (props: TGetProductsQueryKey) => {
 };
 // ######################### Get Single Product #########################
 
-async function getProduct(
-  productId: string
-): Promise<{ product: TProduct<{ _id: string; name: string }> }> {
+async function getProduct(productId: string): Promise<{ product: TProduct }> {
   const { data } = await axiosDefault({
     url: `/products/${productId}`,
     method: 'GET',
@@ -123,7 +121,7 @@ export const useGetSingleProduct = (productId: string) => {
 async function getSimilarProducts({
   productId,
   ...rest
-}: Record<string, string | number>): Promise<{ products: TProduct<string>[] }> {
+}: Record<string, string | number>): Promise<{ products: TProduct[] }> {
   const queryStr = qs.stringify(rest, {
     skipNull: true,
   });

@@ -18,7 +18,7 @@ export default function ProductDetail({
   price,
   colors,
   sizes,
-}: TProduct<{ _id: string; name: string }>) {
+}: TProduct) {
   const [activeImg, setActiveImg] = useState('');
   const [selectedColor, setSelectedColor] = useState(colors[0]._id);
 
