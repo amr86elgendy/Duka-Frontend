@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAddToCart } from '@/apis/cart';
-import { LoaderIcon } from '@/assets/icons';
+import { HalfLoaderIcon } from '@/assets/icons';
 import { useAuthContext } from '@/context/auth';
-import Button from '@/components/services/Button';
+import { Button } from '@/components/UI/button';
 
 type TAddToCartBtn = {
   color: string;
@@ -19,6 +19,7 @@ export default function AddToCartBtn({
   const { t } = useTranslation();
   const { isAuthenticated } = useAuthContext();
   const navigate = useNavigate();
+  const location = useLocation();
   const { mutate: addToCart, isLoading } = useAddToCart();
 
   function handleAddToCart() {
@@ -30,24 +31,25 @@ export default function AddToCartBtn({
         size,
       });
     } else {
-      navigate('/login');
+      navigate('/login', { state: { from: location }, replace: true });
     }
   }
 
   return (
-    // <button
-    //   type="button"
-    //   className="flex flex-grow items-center justify-center rounded-md bg-red-500 py-3 font-semibold text-white"
-    //   onClick={handleAddToCart}
-    // >
-    //   {isLoading ? (
-    //     <LoaderIcon width={22} height={22} stroke="white" />
-    //   ) : (
-    //     t('add-to-cart')
-    //   )}
-    // </button>
-    <Button isLoading={isLoading} onClick={handleAddToCart} className="text-sm">
-      {t('add-to-cart')}
+    <Button
+      variant="destructive"
+      disabled={isLoading}
+      onClick={handleAddToCart}
+      className="text-sm"
+    >
+      {isLoading ? (
+        <div className="flex items-center justify-center gap-2">
+          <HalfLoaderIcon width={22} height={22} stroke="white" />{' '}
+          {t('please-wait')}...
+        </div>
+      ) : (
+        t('add-to-cart')
+      )}
     </Button>
   );
 }

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 export default function Navbar() {
   const { t } = useTranslation(['navbar']);
   return (
-    <nav className="sticky top-0 z-20 bg-primary-1 py-3">
+    <nav className="sticky top-0 z-20 bg-primary-light py-3">
       <div className="container text-white">
         <ul className="flex gap-10">
           <li className="flex cursor-pointer items-center gap-2 hover:text-red-500">

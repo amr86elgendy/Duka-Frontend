@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { BsHandbag } from 'react-icons/bs';
+// import { BsHandbag } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
 import { FiSearch } from 'react-icons/fi';
 import AccountMenu from './AccountMenu';
 import { useAuthContext } from '@/context/auth';
-import FormatNumber from '@/utils/format-number';
-import useToggle from '@/hooks/useToggle';
-import DrawerView from '@/utils/drawer';
+// import FormatNumber from '@/utils/format-number';
+// import useToggle from '@/hooks/useToggle';
+// import DrawerView from '@/utils/drawer';
 import CartSide from '@/components/cart/cartSide';
-import { useGetCart } from '@/apis/cart';
+// import { useGetCart } from '@/apis/cart';
 
 export default function Header() {
   const { t } = useTranslation(['header']);
   const { isAuthenticated } = useAuthContext();
 
-  const { data: cart } = useGetCart();
+  // const { data: cart } = useGetCart();
 
-  const [openSideCart, toggleSideCart] = useToggle();
+  // const [openSideCart, toggleSideCart] = useToggle();
 
   return (
     <>
@@ -96,7 +96,7 @@ export default function Header() {
                 <h2>My Wishlist</h2>
               </div>
             </Link>
-            <button
+            {/* <button
               type="button"
               className="flex items-center gap-2"
               onClick={() => toggleSideCart()}
@@ -125,13 +125,14 @@ export default function Header() {
                   '00.00'
                 )}
               </div>
-            </button>
+            </button> */}
+            <CartSide />
           </div>
         </div>
       </header>
-      <DrawerView opened={openSideCart} onClose={() => toggleSideCart()}>
+      {/* <DrawerView opened={openSideCart} onClose={() => toggleSideCart()}>
         <CartSide onClose={() => toggleSideCart()} />
-      </DrawerView>
+      </DrawerView> */}
     </>
   );
 }

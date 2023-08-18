@@ -1,10 +1,12 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDeleteCartItem, TCartItem } from '@/apis/cart';
 import FormatNumber from '@/utils/format-number';
 import LoadingOverlay from '@/utils/overlay';
+// import { DrawerClose } from '../UI/drawer';
 
 interface ICartSideItem extends TCartItem {
-  onClose: () => void;
+  DrawerClose: React.JSXElementConstructor<any>;
 }
 
 export default function CartSideItem({
@@ -12,9 +14,11 @@ export default function CartSideItem({
   amount,
   product,
   selectedColor,
-  onClose,
+  DrawerClose,
 }: ICartSideItem) {
   const { mutate: deleteItem, isLoading: loadDelete } = useDeleteCartItem();
+  console.log('CartSideItem run');
+
   return (
     <li key={_id} className="relative flex gap-4 py-6">
       <LoadingOverlay visible={loadDelete} />
@@ -29,13 +33,11 @@ export default function CartSideItem({
       <div className="flex flex-1 flex-col justify-evenly">
         <div className="flex justify-between text-xs font-medium text-gray-900">
           <h3>
-            <Link
-              to={`/products/${product._id}`}
-              className="line-clamp-2"
-              onClick={onClose}
-            >
-              {product.name}
-            </Link>
+            <DrawerClose asChild>
+              <Link to={`/products/${product._id}`} className="line-clamp-2">
+                {product.name}
+              </Link>
+            </DrawerClose>
           </h3>
           <FormatNumber value={product.price} withCurrency={false} />
         </div>

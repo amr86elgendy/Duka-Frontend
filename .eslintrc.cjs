@@ -43,5 +43,8 @@ module.exports = {
     'no-nested-ternary': 'off',
     'no-return-assign': 'off',
     'react/jsx-no-bind': 'off',
+    'import/no-extraneous-dependencies': 'off',
+    'global-require': 'off',
+    'react/prop-types': 'off',
   },
 };

@@ -21,19 +21,19 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="py-12 bg-primary-0">
+    <footer className="bg-primary-dark py-12">
       <div className="container text-white">
         <div className="flex flex-col items-center gap-2">
-          <h2 className="text-xl font-semibold text-center">
+          <h2 className="text-center text-xl font-semibold">
             Sign Up To Newsletter
           </h2>
-          <h3 className="w-2/5 text-sm text-center">
+          <h3 className="w-2/5 text-center text-sm">
             Sign up for all the news about our latest arrivals and get an
             exlusive early access shopping. Join 60.000+ Subscribes and get a
             new discount coupon on every Saturday.
           </h3>
         </div>
-        <div className="grid grid-cols-5 py-12 my-8 text-sm border-gray-700 gap-x-4 border-y">
+        <div className="my-8 grid grid-cols-5 gap-x-4 border-y border-gray-700 py-12 text-sm">
           <div className="flex flex-col gap-6">
             <h2 className="text-base font-semibold">Looking For Store?</h2>
             <p>
@@ -44,7 +44,7 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <h2 className="text-base font-semibold">Need Help?</h2>
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="mb-2 flex items-center gap-2">
                 <FiHeadphones size={48} className="text-red-500" />
                 <div>
                   <h3 className=" text-neutral-400">Got Question?</h3>
@@ -67,7 +67,7 @@ export default function Footer() {
               {myAccount.map((item) => (
                 <li
                   key={item}
-                  className="transition-all duration-200 cursor-pointer hover:text-red-500 hover:translate-x-2"
+                  className="cursor-pointer transition-all duration-200 hover:translate-x-2 hover:text-red-500"
                 >
                   <a href="/">{item}</a>
                 </li>
@@ -80,7 +80,7 @@ export default function Footer() {
               {quickLinks.map((item) => (
                 <li
                   key={item}
-                  className="transition-all cursor-pointer hover:text-red-500 hover:translate-x-2"
+                  className="cursor-pointer transition-all hover:translate-x-2 hover:text-red-500"
                 >
                   <a href="/">{item}</a>
                 </li>
@@ -93,7 +93,7 @@ export default function Footer() {
               {customerCare.map((item) => (
                 <li
                   key={item}
-                  className="transition-all cursor-pointer hover:text-red-500 hover:translate-x-2"
+                  className="cursor-pointer transition-all hover:translate-x-2 hover:text-red-500"
                 >
                   <a href="/">{item}</a>
                 </li>

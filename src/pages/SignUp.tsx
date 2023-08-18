@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PasswordInput from '@/components/controllers/PasswordInput';
 import TextInput from '@/components/controllers/TextInput';
 import Checkbox from '@/components/controllers/Checkbox';
-import Button from '@/components/services/Button';
+import Button from '@/components/UI/MyButton';
 import { useRegister } from '@/apis/auth';
 
 type TRegisterFormValues = {
@@ -32,26 +32,26 @@ export default function SignUpPage() {
 
   return (
     <section className="container">
-      <div className="grid items-center grid-cols-2 p-16 px-40 rounded-md">
+      <div className="grid grid-cols-2 items-center rounded-md p-16 px-40">
         <div>
-          <h1 className="w-2/3 mb-6 text-4xl font-semibold text-gray-800">
+          <h1 className="mb-6 w-2/3 text-4xl font-semibold text-gray-800">
             Create your DukaMarket account
           </h1>
-          <p className="w-5/6 mb-10 text-gray-500">
+          <p className="mb-10 w-5/6 text-gray-500">
             Login or create an account to access your latest shopping lists
             within our website and DukaMarket Shopping app.
           </p>
           <Link to="/login">
             <button
               type="button"
-              className="px-10 py-3 font-semibold text-gray-800 border border-gray-300 rounded-md"
+              className="rounded-md border border-gray-300 px-10 py-3 font-semibold text-gray-800"
             >
               Login
             </button>
           </Link>
         </div>
-        <div className="p-8 py-10 bg-white rounded-md">
-          <div className="flex w-full min-h-full">
+        <div className="rounded-md bg-white p-8 py-10">
+          <div className="flex min-h-full w-full">
             <div className="w-full max-w-md">
               <FormProvider {...methods}>
                 <form

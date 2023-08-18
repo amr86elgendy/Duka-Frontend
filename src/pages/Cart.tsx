@@ -4,7 +4,7 @@ import CartItem from '@/components/cart/cartItem';
 import FormatNumber from '@/utils/format-number';
 import { useDeleteCart, useGetCart } from '@/apis/cart';
 import LoadingOverlay from '@/utils/overlay';
-import LoaderFallback from '@/components/services/Loader';
+import LoaderFallback from '@/components/UI/Loader';
 
 export default function Cart() {
   const { data: cart, isLoading: loadCart } = useGetCart();

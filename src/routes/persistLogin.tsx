@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useAuthContext } from '@/context/auth';
-import LoaderFallback from '@/components/services/Loader';
+import LoaderFallback from '@/components/UI/Loader';
 import { useRefreshToken } from '@/apis/auth';
 
 export default function PersistLogin() {

@@ -8,7 +8,7 @@ import GB from '@/assets/flags/US';
 export default function Topbar() {
   const { t } = useTranslation();
   return (
-    <nav className="bg-primary border-b border-neutral-700 bg-primary-0 py-2 text-white">
+    <nav className="border-b border-neutral-700 bg-primary-dark py-2 text-white">
       <div className="container grid grid-cols-2 items-center lg:grid-cols-3">
         <div className="flex items-center gap-2">
           <button

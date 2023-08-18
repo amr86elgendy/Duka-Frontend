@@ -10,10 +10,16 @@ export default function AccountMenu() {
   const { refetch: logoutUser } = useLogout();
   const { user } = useAuthContext();
 
+  const menuItems = [
+    { label: 'my orders', icon: AiOutlineUnorderedList, cb: () => {} },
+    { label: 'help', icon: IoHelpCircleOutline, cb: () => {} },
+    { label: 'log out', icon: IoLogOutOutline, cb: () => logoutUser() },
+  ];
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="inline-flex flex-col w-full text-sm text-white capitalize focus:outline-none">
+        <Menu.Button className="inline-flex w-full flex-col text-sm capitalize text-white focus:outline-none">
           <h3 className="text-neutral-400">
             Hello,{' '}
             <span className="font-medium">{user?.name.split(' ')[0]}</span>
@@ -33,59 +39,28 @@ export default function AccountMenu() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-50 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg w-44 ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 z-50 mt-2 w-44 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-1 py-1 ">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  type="button"
-                  className={`${
-                    active ? 'bg-primary-1 text-white' : 'text-gray-900'
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm capitalize`}
-                >
-                  <AiOutlineUnorderedList
-                    className={`w-5 h-5 mr-2 ${active && 'text-white'}`}
-                    aria-hidden="true"
-                  />
-                  my orders
-                </button>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  type="button"
-                  className={`${
-                    active ? 'bg-primary-1 text-white' : 'text-gray-900'
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm capitalize`}
-                >
-                  <IoHelpCircleOutline
-                    className={`w-5 h-5 mr-2 ${active && 'text-white'}`}
-                    aria-hidden="true"
-                  />
-                  help
-                </button>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="px-1 py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <button
-                  type="button"
-                  className={`${
-                    active ? 'bg-primary-1 text-white' : 'text-gray-900'
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm capitalize`}
-                  onClick={() => logoutUser()}
-                >
-                  <IoLogOutOutline
-                    className={`w-5 h-5 mr-2 ${active && 'text-white'}`}
-                    aria-hidden="true"
-                  />
-                  log out
-                </button>
-              )}
-            </Menu.Item>
+            {menuItems.map((item) => (
+              <Menu.Item key={item.label}>
+                {({ active }) => (
+                  <button
+                    type="button"
+                    className={`${
+                      active ? 'bg-primary-light text-white' : 'text-gray-900'
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm capitalize`}
+                  >
+                    <item.icon
+                      className={`h-5 w-5 ltr:mr-2 rtl:ml-2 ${
+                        active && 'text-white'
+                      }`}
+                      aria-hidden="true"
+                    />
+                    {item.label}
+                  </button>
+                )}
+              </Menu.Item>
+            ))}
           </div>
         </Menu.Items>
       </Transition>

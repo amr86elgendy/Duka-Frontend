@@ -19,16 +19,16 @@ export default function Checkbox<TFormValues>({
       rules={rules}
       render={({ field }) => {
         return (
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <input
               {...field}
               {...rest}
-              className="h-4 w-4 rounded border-gray-300"
+              className="h-4 w-4 cursor-pointer rounded  border-gray-300"
               type="checkbox"
             />
             <label
               htmlFor={rest.id ? rest.id : ''}
-              className="ml-2 block text-sm text-gray-900"
+              className="block cursor-pointer text-sm text-gray-900"
             >
               {label}
             </label>

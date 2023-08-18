@@ -37,7 +37,7 @@ export default function CartControls({ productId, color }: TCartControls) {
         type="button"
         className=" flex h-12 w-12 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100"
         onClick={() => reduceByOne(cartItem!._id)}
-        disabled={!cartItem}
+        disabled={!cartItem || loadIncrease || loadReduce}
       >
         {loadReduce ? <LoaderIcon width={16} height={16} /> : '-'}
       </button>
@@ -46,6 +46,7 @@ export default function CartControls({ productId, color }: TCartControls) {
         type="button"
         className="flex h-12 w-12 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100"
         onClick={() => increaseByOne(cartItem!._id)}
+        disabled={loadIncrease || loadReduce}
       >
         {loadIncrease ? <LoaderIcon width={16} height={16} /> : '+'}
       </button>

@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 
-type TModalComponent = {
+type TDrawerComponent = {
   children: React.ReactNode;
   opened: boolean;
   onClose: () => void;
@@ -12,8 +12,10 @@ export default function DrawerView({
   children,
   opened,
   onClose,
-}: TModalComponent) {
+}: TDrawerComponent) {
   const { i18n } = useTranslation();
+  console.log('drawer view loaded');
+
   return (
     <Transition show={opened} as={Fragment}>
       <Dialog as="div" className="relative z-30" onClose={onClose}>

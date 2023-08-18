@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -23,6 +23,12 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [".eslintrc.cjs", "prettier.config.cjs", "tailwind.config.js", "src"],
+  "include": [
+    ".eslintrc.cjs",
+    "prettier.config.cjs",
+    "tailwind.config.js",
+    "src",
+    "vite.config.js",
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

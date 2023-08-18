@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useLogin } from '@/apis/auth';
 import TextInput from '@/components/controllers/TextInput';
 import PasswordInput from '@/components/controllers/PasswordInput';
 import Checkbox from '@/components/controllers/Checkbox';
-import Button from '@/components/services/Button';
+import Button from '@/components/UI/MyButton';
 
 type TLoginFormValues = {
   email: string;
@@ -14,6 +15,7 @@ type TLoginFormValues = {
 };
 
 export default function LoginPage() {
+  const { t } = useTranslation('auth');
   const methods = useForm<TLoginFormValues>({
     defaultValues: {
       email: 'amr@tawfik.com',
@@ -38,18 +40,15 @@ export default function LoginPage() {
       <div className="grid grid-cols-2 items-center rounded-md p-16 px-40">
         <div>
           <h1 className="mb-6 w-2/3 text-4xl font-semibold text-gray-800">
-            Login to your DukaMarket account
+            {t('login-title')}
           </h1>
-          <p className="mb-10 w-5/6 text-gray-500">
-            Login or create an account to access your latest shopping lists
-            within our website and DukaMarket Shopping app.
-          </p>
+          <p className="mb-10 w-5/6 text-gray-500">{t('login-desc')}</p>
           <Link to="/sign-up">
             <button
               type="button"
               className="rounded-md border border-gray-300 px-10 py-3 font-semibold text-gray-800"
             >
-              Create an account
+              {t('create-new-account')}
             </button>
           </Link>
         </div>
@@ -74,7 +73,7 @@ export default function LoginPage() {
                           message: 'invalid email',
                         },
                       }}
-                      placeholder="Email address"
+                      placeholder={t('email-address')!}
                     />
                     <PasswordInput
                       name="password"
@@ -85,13 +84,13 @@ export default function LoginPage() {
                           message: 'password must be at least 6 characters',
                         },
                       }}
-                      placeholder="Password"
+                      placeholder={t('password')!}
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <Checkbox<TLoginFormValues>
-                      label="Remember Me"
+                      label={t('remember-me')}
                       name="rememberMe"
                       id="rememberMe"
                     />
@@ -101,12 +100,12 @@ export default function LoginPage() {
                         to="/forgot-password"
                         className="font-medium text-red-600 hover:text-red-500"
                       >
-                        Forgot your password?
+                        {t('forgot-password')}
                       </Link>
                     </div>
                   </div>
                   <Button type="submit" isLoading={isLoading}>
-                    Sign in
+                    {t('sign-in')}
                   </Button>
                 </form>
               </FormProvider>
