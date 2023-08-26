@@ -75,7 +75,7 @@ export default function ProductItem({
         </div>
       </div>
       {/* ---------- Title & Stars & Price ------------ */}
-      <div className="my-4 flex flex-col gap-2">
+      <div className="my-4 flex flex-col items-center gap-2">
         <p className="line-clamp-2 text-center text-sm font-semibold capitalize text-blue-700 2xl:text-base">
           {name}
         </p>
@@ -111,7 +111,6 @@ export default function ProductItem({
           name={name}
           numReviews={numReviews}
           price={price}
-          className="border-2 py-3"
         />
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuickViewContext } from '@/context/quickView';
+import { Button } from '@/components/UI/button';
 
 type TQuickViewBtn = ButtonHTMLAttributes<HTMLButtonElement> & {
   colors: { _id: string; name: string }[];
@@ -23,9 +24,9 @@ export default function QuickViewBtn({
   const { t } = useTranslation();
   const { dispatch } = useQuickViewContext();
   return (
-    <button
-      type="button"
-      className={`rounded-md border border-gray-300 text-sm font-semibold capitalize text-gray-500 ${className}`}
+    <Button
+      variant="outline"
+      className={className}
       onClick={() =>
         dispatch('SET_VIEW', {
           name,
@@ -38,6 +39,6 @@ export default function QuickViewBtn({
       }
     >
       {t('quick-view')}
-    </button>
+    </Button>
   );
 }

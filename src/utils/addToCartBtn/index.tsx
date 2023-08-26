@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAddToCart } from '@/apis/cart';
-import { HalfLoaderIcon } from '@/assets/icons';
 import { useAuthContext } from '@/context/auth';
 import { Button } from '@/components/UI/button';
+import { toast } from '@/hooks/use-toast';
 
 type TAddToCartBtn = {
   color: string;
@@ -24,32 +24,29 @@ export default function AddToCartBtn({
 
   function handleAddToCart() {
     if (isAuthenticated) {
-      addToCart({
-        amount: 1,
-        color,
-        productId,
-        size,
-      });
+      addToCart(
+        {
+          amount: 1,
+          color,
+          productId,
+          size,
+        },
+        {
+          onSuccess: () =>
+            toast({
+              title: 'Product Added Successfully',
+              description: 'You can view your cart or proceed to',
+            }),
+        }
+      );
     } else {
       navigate('/login', { state: { from: location }, replace: true });
     }
   }
 
   return (
-    <Button
-      variant="destructive"
-      disabled={isLoading}
-      onClick={handleAddToCart}
-      className="text-sm"
-    >
-      {isLoading ? (
-        <div className="flex items-center justify-center gap-2">
-          <HalfLoaderIcon width={22} height={22} stroke="white" />{' '}
-          {t('please-wait')}...
-        </div>
-      ) : (
-        t('add-to-cart')
-      )}
+    <Button variant="destructive" loading={isLoading} onClick={handleAddToCart}>
+      {t('add-to-cart')}
     </Button>
   );
 }

@@ -6,7 +6,7 @@ import { useLogin } from '@/apis/auth';
 import TextInput from '@/components/controllers/TextInput';
 import PasswordInput from '@/components/controllers/PasswordInput';
 import Checkbox from '@/components/controllers/Checkbox';
-import Button from '@/components/UI/MyButton';
+import { Button } from '@/components/UI/button';
 
 type TLoginFormValues = {
   email: string;
@@ -43,14 +43,9 @@ export default function LoginPage() {
             {t('login-title')}
           </h1>
           <p className="mb-10 w-5/6 text-gray-500">{t('login-desc')}</p>
-          <Link to="/sign-up">
-            <button
-              type="button"
-              className="rounded-md border border-gray-300 px-10 py-3 font-semibold text-gray-800"
-            >
-              {t('create-new-account')}
-            </button>
-          </Link>
+          <Button variant="outline" size="lg">
+            <Link to="/sign-up">{t('create-new-account')}</Link>
+          </Button>
         </div>
 
         {/* -------------------------------------------------- */}
@@ -60,7 +55,7 @@ export default function LoginPage() {
             <div className="w-full max-w-md">
               <FormProvider {...methods}>
                 <form
-                  className="w-full space-y-6"
+                  className="flex flex-col gap-6"
                   onSubmit={methods.handleSubmit(onSubmit)}
                 >
                   <div className="flex flex-col gap-4 rounded-md ">
@@ -104,7 +99,7 @@ export default function LoginPage() {
                       </Link>
                     </div>
                   </div>
-                  <Button type="submit" isLoading={isLoading}>
+                  <Button variant="destructive" loading={isLoading}>
                     {t('sign-in')}
                   </Button>
                 </form>

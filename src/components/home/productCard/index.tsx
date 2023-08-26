@@ -100,7 +100,7 @@ export default function ProductCard({
       </div>
 
       {/* ---------------------------- */}
-      <div className="my-4 flex flex-col gap-2">
+      <div className="my-4 flex flex-col items-center gap-2">
         <h1 className="line-clamp-2 text-center text-sm font-semibold capitalize text-blue-700">
           {name}
         </h1>

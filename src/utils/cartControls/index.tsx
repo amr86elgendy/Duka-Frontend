@@ -5,6 +5,8 @@ import {
   useReduceItemByOne,
 } from '@/apis/cart';
 import { LoaderIcon } from '@/assets/icons';
+import { toast } from '@/hooks/use-toast';
+import { Button } from '@/components/UI/button';
 
 type TCartControls = {
   productId: string;
@@ -33,23 +35,40 @@ export default function CartControls({ productId, color }: TCartControls) {
 
   return (
     <div className="flex items-center justify-evenly gap-4 text-black">
-      <button
-        type="button"
-        className=" flex h-12 w-12 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100"
-        onClick={() => reduceByOne(cartItem!._id)}
+      <Button
+        variant="outline"
+        size="icon"
+        // className="h-10 w-12 "
+        onClick={() =>
+          reduceByOne(cartItem!._id, {
+            onSuccess: () =>
+              toast({
+                title: 'Product reduced Successfully',
+                description: 'You can view your cart or proceed to',
+              }),
+          })
+        }
         disabled={!cartItem || loadIncrease || loadReduce}
       >
-        {loadReduce ? <LoaderIcon width={16} height={16} /> : '-'}
-      </button>
+        {loadReduce ? <LoaderIcon width={18} height={18} /> : '-'}
+      </Button>
       <h3>{cartItem ? cartItem.amount : 0}</h3>
-      <button
-        type="button"
-        className="flex h-12 w-12 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100"
-        onClick={() => increaseByOne(cartItem!._id)}
+      <Button
+        variant="outline"
+        size="icon"
+        onClick={() =>
+          increaseByOne(cartItem!._id, {
+            onSuccess: () =>
+              toast({
+                title: 'Product Added Successfully',
+                description: 'You can view your cart or proceed to',
+              }),
+          })
+        }
         disabled={loadIncrease || loadReduce}
       >
-        {loadIncrease ? <LoaderIcon width={16} height={16} /> : '+'}
-      </button>
+        {loadIncrease ? <LoaderIcon width={18} height={18} /> : '+'}
+      </Button>
     </div>
   );
 }

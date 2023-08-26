@@ -46,5 +46,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'global-require': 'off',
     'react/prop-types': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 };

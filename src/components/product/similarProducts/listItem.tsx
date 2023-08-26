@@ -80,14 +80,8 @@ export default function ListItem({
           image={images[0]}
           numReviews={numReviews}
           price={price}
-          className="px-4 py-2 text-xs hover:bg-gray-50"
+          className="px-4 py-2 text-xs"
         />
-        {/* <button
-            type="button"
-            className="rounded-md border border-gray-300 text-xs font-semibold text-gray-700"
-          >
-            {t('quick-view')}
-          </button> */}
       </div>
     </div>
   );

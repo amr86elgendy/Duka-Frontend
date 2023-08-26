@@ -8,6 +8,7 @@ import { AuthProvider } from './context/auth.tsx';
 import { FilterProvider } from './context/filter.tsx';
 import { QuickViewProvider } from './context/quickView.tsx';
 import QuickViewModal from './components/services/QuickViewModal.tsx';
+import Toaster from './components/UI/toaster';
 import './index.css';
 import './i18n.ts';
 
@@ -16,7 +17,7 @@ const queryClient = new QueryClient({
     queries: {
       refetchOnWindowFocus: false,
       retry: false,
-      onError: (error: any) => {},
+      onError: (error) => {},
     },
   },
 });
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <QuickViewProvider>
             <App />
             {createPortal(<QuickViewModal />, document.body)}
+            {createPortal(<Toaster />, document.body)}
           </QuickViewProvider>
         </FilterProvider>
       </AuthProvider>
