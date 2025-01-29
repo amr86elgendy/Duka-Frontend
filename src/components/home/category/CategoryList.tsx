@@ -4,7 +4,8 @@ import banner from '@/assets/banners.jpg';
 import { useGetCategories } from '@/apis/public';
 
 export default function CategoryList() {
-  const { data: categories } = useGetCategories();
+  const { data: categories, error } = useGetCategories();
+  if (eror) return <div>Error</div>
   return (
     <div className="flex flex-col border-r bg-white">
       <div className="basis-[393px] bg-green-500">
