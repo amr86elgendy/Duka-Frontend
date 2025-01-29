@@ -21,6 +21,7 @@ export default function Category() {
     data?.pages
       .flatMap((page: Record<string, any>) => page.products)
       .slice(1) ?? [];
+  if (error) return <div>Error</div>
 
   return (
     <>
